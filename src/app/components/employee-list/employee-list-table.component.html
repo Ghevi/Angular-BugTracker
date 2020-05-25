@@ -1,0 +1,21 @@
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th>User Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>References</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let tempEmployee of employees">
+      <td class="align-middle">{{ tempEmployee.userName }}</td>
+      <td class="align-middle">{{ tempEmployee.email }}</td>
+      <td class="align-middle">{{ tempEmployee.roleId }}</td>
+      <td class="align-middle"><a href="#">Assigned Projects</a>
+      <br/>
+      <a href="#">Assigned Tickets</a></td>
+    </tr>
+  </tbody>
+</table>
