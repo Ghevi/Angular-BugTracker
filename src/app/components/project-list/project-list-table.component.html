@@ -1,0 +1,21 @@
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th>Project Name</th>
+      <th>Description</th>
+      <th>Stage</th>
+      <th>References</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let tempProject of projects">
+      <td class="align-middle">{{ tempProject.projectName }}</td>
+      <td class="align-middle">{{ tempProject.description }}</td>
+      <td class="align-middle">{{ tempProject.stage }}</td>
+      <td class="align-middle"><a href="#">Assigned Employee</a>
+      <br/>
+      <a href="#">Assigned Tickets</a></td>
+    </tr>
+  </tbody>
+</table>
