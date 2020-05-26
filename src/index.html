@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Styles CSS-->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles-navbar.css">
+  <link rel="stylesheet" href="styles-header.css">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
 
   <!-- Bootstrap CSS -->
@@ -20,6 +21,13 @@
 
 
 <body>
+
+  <div class="topnav">
+    <a href="#home">Logged is as an: Admin</a>
+    <a href="#news">Search</a>
+    <a href="#contact">Notification</a>
+    <a href="#about">User Settings</a>
+  </div>
 
   <div id="wrapper">
 
@@ -312,12 +320,13 @@
       </ul>
     </nav>
 
+<main>
   </div>
-  <div id="right">
-    <app-root></app-root>
+    <div id="right">
+      <app-root></app-root>
     </div>
-</div>
-
+  </div>
+</main>
 
 </body>
 </html>

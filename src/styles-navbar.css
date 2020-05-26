@@ -29,7 +29,7 @@ body {
 }
 
 body::-webkit-scrollbar {
-  width: 0.25rem;
+  width: 0.75rem;
 }
 
 body::-webkit-scrollbar-track {
@@ -50,6 +50,12 @@ main {
   background-color: var(--bg-primary);
   transition: width 600ms ease;
   overflow: scroll;
+}
+
+
+
+.navbar::-webkit-scrollbar {
+  display:none;
 }
 
 .navbar-nav {
