@@ -7,6 +7,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 import { ProjectListComponent } from './components/project-list/project-list.component';
+import { HeaderComponent } from './components/header/header.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+
 import { EmployeeService } from './services/employee.service';
 import { ProjectService } from './services/project.service';
 
@@ -14,7 +17,9 @@ import { ProjectService } from './services/project.service';
   declarations: [
     AppComponent,
     EmployeeListComponent,
-    ProjectListComponent
+    ProjectListComponent,
+    HeaderComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

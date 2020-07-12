@@ -1,0 +1,12 @@
+#wrapper {
+  display: flex;
+}
+
+#left {
+  flex: -1 0 65%;
+}
+
+#right {
+  align-self: top;
+  flex: 1;
+}
