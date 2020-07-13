@@ -1,39 +1,69 @@
+.roboto {
+  font-family: "Roboto Mono", serif;
+}
+
 .table-title {
   position: relative;
-  left: 50rem;
-  top: 10.47rem;
+  left: 45rem;
+  top: 10.7rem;
   color: white;
   background-color: #343a40;
+  font-family: "Roboto Mono", serif;
 }
 
 .table {
   position: relative;
-  left: 50rem;
-  top: 10rem;
+  left: 45rem;
+  top: 10.2rem;
+  width: 60rem;
+}
+
+#title {
+  position: relative;
+  left: 17rem;
+  top: 5rem;
+  font-family: "Roboto Mono", serif;
 }
 
 #user-list {
   position: relative;
-  left: 15rem;
+  left: 11.4rem;
   top: -17.5rem;
-  width: 10rem;
+  width: 19.3rem;
+}
+
+#submit-form {
+  position: relative;
+  left: 6rem;
+  font-family: "Roboto Mono", serif;
 }
 
 #submit {
   position: relative;
-  left: 5rem;
-  top: -15rem;
-  width: 10rem;
+  left: -7.2rem;
+  top: -10rem;
+  width: 18.6rem;
 }
 
-h4 {
+#roles-list {
   position: relative;
-  left: 12rem;
+  left: 11.4rem;
+  top: -13rem;
+  width: 18.6rem;
+}
+
+h5 {
+  position: relative;
+  left: 11.3rem;
   top: -18rem;
 }
 
 #role {
   position: relative;
-  left: 12rem;
-  top: -17rem;
+  left: 11.3rem;
+  top: -13rem;
+}
+
+th {
+  font-family: "Roboto Mono", serif;
 }

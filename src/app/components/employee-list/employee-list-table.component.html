@@ -1,45 +1,58 @@
-<div class="container">
-  <div>
-    <h1 class="table-title">Employees</h1>
-    <table class="table">
-      <thead class="thead-dark">
-        <tr>
-          <th>User Name</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>References</th>
-        </tr>
-      </thead>
+<link
+  href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Roboto+Mono:wght@500&display=swap"
+  type="text"
+  rel="stylesheet"
+/>
 
-      <tbody>
-        <tr *ngFor="let tempEmployee of employees">
-          <td class="align-middle">{{ tempEmployee.userName }}</td>
-          <td class="align-middle">{{ tempEmployee.email }}</td>
-          <td class="align-middle">{{ tempEmployee.roleId }}</td>
-          <td class="align-middle">
-            <a routerLink="/projects">Assigned Projects</a>
-            <br />
-            <a href="#">Assigned Tickets</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div>
-    <h4>Select 1 or multiple users</h4>
-    <select id="user-list" multiple size="employees.length" >
-      <option
-      *ngFor="let employee of employees; let indexOfEmployee=index;"
+<h1 id="title">Manage User Roles</h1>
+<h1 class="table-title">Employees</h1>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th>User Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th style="text-align: end;">References</th>
+    </tr>
+  </thead>
+
+  <tbody class="roboto">
+    <tr *ngFor="let tempEmployee of employees">
+      <td class="align-middle">{{ tempEmployee.userName }}</td>
+      <td class="align-middle">{{ tempEmployee.email }}</td>
+      <td class="align-middle">{{ tempEmployee.roleId }}</td>
+      <td style="text-align: end;" class="align-middle">
+        <a routerLink="/projects">Assigned Projects</a>
+        <br />
+        <a href="#">Assigned Tickets</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div id="submit-form">
+  <h5>Select 1 or multiple users</h5>
+  <select id="user-list" multiple size="employees.length">
+    <option
+      name="option"
+      *ngFor="let employee of employees; let indexOfEmployee = index"
       value="indexOfEmployee"
-      >{{ employee.userName }}</option>
-    </select>
-    <h4 id="role">Select the role to assign</h4>
-    <select id="user-list" placeholder="-Select Role/None-">
-      <option> Admin </option>
-      <option> Manager </option>
-      <option> User </option>
-      <option> Guest </option>
-    </select>
-    <button id="submit" type='submit' class="btn btn-primary" (click)="onSubmit()">Submit</button>
-  </div>
+      >{{ employee.userName }}</option
+    >
+  </select>
+  <h5 id="role">Select the role to assign</h5>
+  <select id="roles-list" placeholder="-Select Role/None-">
+    <option> Admin </option>
+    <option> Manager </option>
+    <option> User </option>
+    <option> Guest </option>
+  </select>
+  <button
+    id="submit"
+    type="submit"
+    class="btn btn-primary"
+    (click)="onSubmit()"
+  >
+    Submit
+  </button>
 </div>
