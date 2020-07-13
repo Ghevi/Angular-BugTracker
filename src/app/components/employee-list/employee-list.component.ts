@@ -9,7 +9,6 @@ import { EmployeeService } from 'src/app/services/employee.service';
   styleUrls: ['./employee-list.component.css']
 })
 export class EmployeeListComponent implements OnInit {
-
   employees: Employee[];
 
   constructor(private employeeService: EmployeeService) { }
@@ -24,6 +23,10 @@ export class EmployeeListComponent implements OnInit {
         this.employees = data;
       }
     );
+  }
+
+  onSubmit(){
+
   }
 
 }

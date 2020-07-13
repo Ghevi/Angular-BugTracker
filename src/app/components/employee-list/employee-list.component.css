@@ -1,0 +1,39 @@
+.table-title {
+  position: relative;
+  left: 50rem;
+  top: 10.47rem;
+  color: white;
+  background-color: #343a40;
+}
+
+.table {
+  position: relative;
+  left: 50rem;
+  top: 10rem;
+}
+
+#user-list {
+  position: relative;
+  left: 15rem;
+  top: -17.5rem;
+  width: 10rem;
+}
+
+#submit {
+  position: relative;
+  left: 5rem;
+  top: -15rem;
+  width: 10rem;
+}
+
+h4 {
+  position: relative;
+  left: 12rem;
+  top: -18rem;
+}
+
+#role {
+  position: relative;
+  left: 12rem;
+  top: -17rem;
+}
