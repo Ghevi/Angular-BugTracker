@@ -45,6 +45,11 @@
   width: 18.6rem;
 }
 
+button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+
 #roles-list {
   position: relative;
   left: 11.4rem;

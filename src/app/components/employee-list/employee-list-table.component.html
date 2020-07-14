@@ -20,7 +20,7 @@
     <tr *ngFor="let tempEmployee of employees">
       <td class="align-middle">{{ tempEmployee.userName }}</td>
       <td class="align-middle">{{ tempEmployee.email }}</td>
-      <td class="align-middle">{{ tempEmployee.roleId }}</td>
+      <td class="align-middle">{{ tempEmployee.role }}</td>
       <td style="text-align: end;" class="align-middle">
         <a routerLink="/projects">Assigned Projects</a>
         <br />
@@ -30,29 +30,30 @@
   </tbody>
 </table>
 
-<div id="submit-form">
-  <h5>Select 1 or multiple users</h5>
-  <select id="user-list" multiple size="employees.length">
-    <option
-      name="option"
-      *ngFor="let employee of employees; let indexOfEmployee = index"
-      value="indexOfEmployee"
-      >{{ employee.userName }}</option
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <div id="submit-form">
+    <h5>Select 1 or multiple users</h5>
+    <select required name="userName" ngModel id="user-list" multiple size="employees.length">
+      <option
+        name="option"
+        *ngFor="let employee of employees; let indexOfEmployee = index"
+        >{{ employee.userName }}</option
+      >
+    </select>
+    <h5 id="role">Select the role to assign</h5>
+    <select required name="role" ngModel id="roles-list" placeholder="-Select Role/None-">
+      <option> Admin </option>
+      <option> Manager </option>
+      <option> User </option>
+      <option> Guest </option>
+    </select>
+    <button
+      id="submit"
+      type="submit"
+      class="btn btn-success"
+      [disabled]="!f.valid"
     >
-  </select>
-  <h5 id="role">Select the role to assign</h5>
-  <select id="roles-list" placeholder="-Select Role/None-">
-    <option> Admin </option>
-    <option> Manager </option>
-    <option> User </option>
-    <option> Guest </option>
-  </select>
-  <button
-    id="submit"
-    type="submit"
-    class="btn btn-primary"
-    (click)="onSubmit()"
-  >
-    Submit
-  </button>
-</div>
+      Submit
+    </button>
+  </div>
+</form>
