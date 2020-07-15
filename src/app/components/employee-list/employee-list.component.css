@@ -6,6 +6,7 @@
   position: relative;
   left: 45rem;
   top: 10.7rem;
+  max-width: 60rem;
   color: white;
   background-color: #343a40;
   font-family: "Roboto Mono", serif;
@@ -72,3 +73,4 @@ h5 {
 th {
   font-family: "Roboto Mono", serif;
 }
+

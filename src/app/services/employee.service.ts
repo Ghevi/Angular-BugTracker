@@ -1,8 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, find } from 'rxjs/operators';
 import { Employee } from '../common/employee';
+
+interface GetResponse {
+ _embedded: {
+   employees: Employee[];
+ }
+}
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +24,11 @@ export class EmployeeService {
       map(response => response._embedded.employees)
     );
   }
+
+  setEmployeeRole(employees: Employee[]) {
+    this.httpClient.put<GetResponse>(this.baseUrl, employees).pipe(
+      map(request => request._embedded.employees = employees)
+    );
+  }
 }
 
-interface GetResponse {
- _embedded: {
-   employees: Employee[];
- }
-}

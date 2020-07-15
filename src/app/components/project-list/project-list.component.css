@@ -1,0 +1,38 @@
+:host {
+  display: grid;
+  gap: 30px;
+
+  padding: 20px;
+
+  grid-template:
+    " header  .      " 1fr
+    " main    .      " 74vh
+    / 10fr 0.1fr;
+}
+
+header {
+  grid-area: header;
+}
+
+main {
+  grid-area: main;
+  min-width: 650px;
+  height: fit-content;
+}
+
+button {
+  color: white;
+  background-color: rgb(150, 153, 155);
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  box-shadow: 0 8px 16px 0 #c8c8bd, 0 6px 20px 0 #c8c8bd;
+  color: white;
+  background-color: #3fa3f5;
+  transition-duration: 0.5s;
+}
+
+

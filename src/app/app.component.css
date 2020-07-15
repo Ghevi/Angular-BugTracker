@@ -1,12 +1,28 @@
-#wrapper {
-  display: flex;
+:host  {
+  height: 100%;
+
+  display: grid;
+  gap: 30px;
+
+  grid-template:
+    " header                header header " 1fr
+    " nav                   main   main   " 1fr
+    " footer                footer footer " 1fr
+    / minmax(100px, 0.1fr)  1fr    0.1fr
 }
 
-#left {
-  flex: -1 0 65%;
+header {
+  grid-area: header;
 }
 
-#right {
-  align-self: top;
-  flex: 1;
+nav {
+  grid-area: nav;
+}
+
+main {
+  grid-area: main;
+}
+
+footer {
+  grid-area: footer;
 }

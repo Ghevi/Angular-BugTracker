@@ -29,15 +29,14 @@ export class EmployeeListComponent implements OnInit {
   onSubmit(form: NgForm){
     const value = form.value;
     const user = value.userName;
-    console.log(user)
     const role = value.role;
-    console.log(role)
 
     for(let employee of this.employees) {
       if(employee.userName == user){
         employee.role = role;
       }
     }
+    this.employeeService.setEmployeeRole(this.employees);
   }
 
 }

@@ -12,6 +12,10 @@
   font-size: 17px;
 }
 
+.topnav :last-child {
+  margin-left: 80rem;
+}
+
 .topnav a:hover {
   background-color: #141418;
   color: white;
