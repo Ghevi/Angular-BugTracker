@@ -13,6 +13,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 
 import { EmployeeService } from './services/employee.service';
 import { ProjectService } from './services/project.service';
+import { TicketsListComponent } from './components/tickets-list/tickets-list.component';
+import { ProjectDetailsComponent } from './components/project-list/project-details/project-details.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { ProjectService } from './services/project.service';
     EmployeeListComponent,
     ProjectListComponent,
     HeaderComponent,
-    NavbarComponent
+    NavbarComponent,
+    TicketsListComponent,
+    ProjectDetailsComponent
   ],
   imports: [
     BrowserModule,
