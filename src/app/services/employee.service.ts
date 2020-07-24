@@ -25,10 +25,9 @@ export class EmployeeService {
     );
   }
 
-  setEmployeeRole(employees: Employee[]) {
-    this.httpClient.put<GetResponse>(this.baseUrl, employees).pipe(
-      map(request => request._embedded.employees = employees)
+  setEmployeeRole(userName: string, role: string): Observable<Employee[]> {
+    return this.httpClient.patch<GetResponse>(this.baseUrl, role).pipe(
+      map(response => response._embedded.employees)
     );
   }
 }
-

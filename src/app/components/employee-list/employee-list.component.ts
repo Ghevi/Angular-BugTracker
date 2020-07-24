@@ -34,9 +34,9 @@ export class EmployeeListComponent implements OnInit {
     for(let employee of this.employees) {
       if(employee.userName == user){
         employee.role = role;
+        this.employeeService.setEmployeeRole(employee.userName, employee.role);
       }
     }
-    this.employeeService.setEmployeeRole(this.employees);
   }
 
 }

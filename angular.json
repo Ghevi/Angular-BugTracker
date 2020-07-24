@@ -120,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "angular-bugtracker"
+    }
+  },
+  "defaultProject": "angular-bugtracker",
+  "cli": {
+    "analytics": false
+  }
 }
