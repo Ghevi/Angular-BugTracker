@@ -1,5 +1,6 @@
-<h1>Details for {{ project.projectName }} </h1>
-<h6>Project Description: {{ project.description }}</h6>
-<h6>Project Stage: {{ project.stage }}</h6>
+<h1>Details for {{ project?.projectName }} </h1>
+<h6>Project Description: {{ project?.description }}</h6>
+<h6>Project Stage: {{ project?.stage }}</h6>
 <hr />
-<div #detailContainer></div>
+<app-employee-list></app-employee-list>
+<app-tickets-list></app-tickets-list>

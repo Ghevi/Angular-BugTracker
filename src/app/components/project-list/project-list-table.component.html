@@ -23,10 +23,7 @@
         <td class="align-middle">
           <a routerLink="/employees">Assigned Employee</a>
           <br />
-          <a
-            [routerLink]="['/projects', project.id, project.projectName, project.description, project.stage]"
-            >Project Details</a
-          >
+          <a [routerLink]="['/projects', project.id]">Project Details</a>
         </td>
       </tr>
     </tbody>

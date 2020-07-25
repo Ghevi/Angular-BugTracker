@@ -33,12 +33,12 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.listEmployees();
     this.renderRoleAssignmentSubscription = this.projectService.renderRoleAssignment$.subscribe(
       (render) => {
         this.renderRoleAssignment = false;
       }
     );
+    this.listEmployees();
   }
 
   listEmployees() {
@@ -49,9 +49,9 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
   }
 
   addIdToEmployees() {
-    for(let employee of this.employees) {
+    for (let employee of this.employees) {
       let href = employee._links.self.href;
-      let employeeId = +href.replace(this.baseUrl, '');
+      let employeeId = +href.replace(this.baseUrl, "");
       employee.id = employeeId;
     }
   }

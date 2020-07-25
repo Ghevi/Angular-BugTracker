@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnDestroy } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable, Subject } from "rxjs";
 import { map } from "rxjs/operators";
-import { Project } from "../common/project";
+import { IProject, Project } from "../common/project";
 
 interface GetResponse {
   _embedded: {
@@ -27,5 +27,7 @@ export class ProjectService {
       .pipe(map((response) => response._embedded.projects));
   }
 
-  
+  getProject(id: number): Observable<IProject> {
+    return this.httpClient.get<IProject>(this.baseUrl + "/" + id);
+  }
 }
