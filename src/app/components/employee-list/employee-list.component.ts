@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Employee } from "src/app/common/employee";
+import { IEmployee } from "src/app/common/employee";
 import { EmployeeService } from "src/app/services/employee.service";
 import { NgForm } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { ProjectService } from "src/app/services/project.service";
-import { ActivatedRouteSnapshot, ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-employee-list",
@@ -13,31 +13,25 @@ import { ActivatedRouteSnapshot, ActivatedRoute } from "@angular/router";
   styleUrls: ["./employee-list.component.css"],
 })
 export class EmployeeListComponent implements OnInit, OnDestroy {
-  employees: Employee[];
-  renderRoleAssignment = true;
-  renderRoleAssignmentSubscription: Subscription;
+  employees: IEmployee[];
+  renderRoleAssignment: boolean;
+  renderRoleAssignmentSubs: Subscription = new Subscription();
   private baseUrl = "http://localhost:8080/api/employees/";
 
   constructor(
     private employeeService: EmployeeService,
     private projectService: ProjectService,
     private route: ActivatedRoute
-  ) {
-    this.renderRoleAssignmentSubscription = new Subscription();
-  }
+  ) {}
 
   ngOnInit() {
     const routePath = this.route.snapshot.routeConfig.path;
+    console.log(routePath);
     if (routePath === "employees") {
       this.listEmployees();
       return;
     }
-
-    this.renderRoleAssignmentSubscription = this.projectService.renderRoleAssignment$.subscribe(
-      (render) => {
-        this.renderRoleAssignment = false;
-      }
-    );
+    this.displayRoleAssignment();
     this.listEmployees();
   }
 
@@ -56,7 +50,13 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
     }
   }
 
-  listAssignedEmployees() {}
+  displayRoleAssignment() {
+    this.renderRoleAssignmentSubs = this.projectService.renderRoleAssignment$.subscribe(
+      (render) => {
+        this.renderRoleAssignment = render;
+      }
+    );
+  }
 
   onSubmit(form: NgForm) {
     const value = form.value;
@@ -72,6 +72,6 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.renderRoleAssignmentSubscription.unsubscribe();
+    this.renderRoleAssignmentSubs.unsubscribe();
   }
 }

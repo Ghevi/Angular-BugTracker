@@ -2,12 +2,11 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { Employee } from "../common/employee";
-import { Links } from "../common/project";
+import { IEmployee } from "../common/employee";
 
 interface GetResponse {
   _embedded: {
-    employees: Employee[];
+    employees: IEmployee[];
   };
 }
 
@@ -19,15 +18,15 @@ export class EmployeeService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getEmployeeList(): Observable<Employee[]> {
+  getEmployeeList(): Observable<IEmployee[]> {
     return this.httpClient
       .get<GetResponse>(this.baseUrl)
       .pipe(map((response) => response._embedded.employees));
   }
 
-  setEmployeeRole(employee: Employee, id: number): Observable<Employee> {
+  setEmployeeRole(employee: IEmployee, id: number): Observable<IEmployee> {
     return this.httpClient
-      .put<Employee>(this.baseUrl + "/" + id, employee);
+      .put<IEmployee>(this.baseUrl + "/" + id, employee);
 
   }
 }

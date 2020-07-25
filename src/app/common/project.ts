@@ -1,19 +1,19 @@
+import { _Links } from './_links';
+
 export interface IProject {
   id?: number
-  _links?: Links;
   projectName?: string;
   description?: string;
   stage?: string;
+  _links?: _Links;
 }
 
 export class Project implements IProject{
   id: number
-  _links?: Links;
   projectName: string;
   description: string;
   stage: string;
+  _links?: _Links;
 }
 
-export class Links {
-  self: { href: string };
-}
+
