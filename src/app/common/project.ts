@@ -6,6 +6,6 @@ export class Project {
   stage: string;
 }
 
-class Links {
+export class Links {
   self: { href: string };
 }

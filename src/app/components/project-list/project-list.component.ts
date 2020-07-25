@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 export class ProjectListComponent implements OnInit {
   projects: Project[];
   getProjectsSub: Subscription;
-  private baseUrl = "http://localhost:8080/api/projects";
+  private baseUrl = "http://localhost:8080/api/projects/";
 
   constructor(private projectService: ProjectService) {
     this.getProjectsSub = new Subscription();
@@ -34,7 +34,7 @@ export class ProjectListComponent implements OnInit {
   addIdToProjects() {
     for(let project of this.projects){
       let href = project._links.self.href;
-      let projectId = +href.replace(this.baseUrl + '/', '');
+      let projectId = +href.replace(this.baseUrl, '');
       project.id = projectId;
     }
   }

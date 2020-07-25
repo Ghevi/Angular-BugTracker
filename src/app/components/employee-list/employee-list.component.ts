@@ -16,6 +16,7 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
   employees: Employee[];
   renderRoleAssignment = true;
   renderRoleAssignmentSubscription: Subscription;
+  private baseUrl = "http://localhost:8080/api/employees/";
 
   constructor(
     private employeeService: EmployeeService,
@@ -43,7 +44,16 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
   listEmployees() {
     this.employeeService.getEmployeeList().subscribe((data) => {
       this.employees = data;
+      this.addIdToEmployees();
     });
+  }
+
+  addIdToEmployees() {
+    for(let employee of this.employees) {
+      let href = employee._links.self.href;
+      let employeeId = +href.replace(this.baseUrl, '');
+      employee.id = employeeId;
+    }
   }
 
   listAssignedEmployees() {}
@@ -56,7 +66,7 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
     for (let employee of this.employees) {
       if (employee.userName == user) {
         employee.role = role;
-        this.employeeService.setEmployeeRole(employee.userName, employee.role);
+        this.employeeService.setEmployeeRole(employee, employee.id).subscribe();
       }
     }
   }
