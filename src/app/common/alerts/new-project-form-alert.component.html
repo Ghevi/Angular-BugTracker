@@ -1,28 +1,89 @@
-<div class="backdrop" (click)="onClose()"></div>
+<link
+  href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Roboto+Mono:wght@500&display=swap"
+  type="text"
+  rel="stylesheet"
+/>
+
+<div class="backdrop" (click)="onFormAlertClose()"></div>
 <div class="alert-box">
-  <form>
-    <p>new project form</p>
+  <form [formGroup]="newProjectForm" (ngSubmit)="onSubmit()">
+    <h3>New Project Form</h3>
     <div class="form-group">
       <label for="projectName">Project Name</label>
-      <input type="text" id="projectName" class="form-control" />
+      <input
+        type="text"
+        id="projectName"
+        class="form-control"
+        [formControlName]="'projectName'"
+      />
+      <!-- if omit [] also omit ''-->
+      <span
+        *ngIf="
+          !newProjectForm.get('projectName').valid &&
+          newProjectForm.get('projectName').touched
+        "
+        >Please enter a project name</span
+      >
     </div>
     <div class="form-group">
       <label for="description">Description</label>
-      <input type="text" id="description" class="form-control" />
+      <textarea
+        id="description"
+        class="form-control"
+        formControlName="description"
+      ></textarea>
     </div>
     <div class="form-group">
       <label for="assignedEmployees">Assign Employees</label>
-      <select name="employees" class="form-control" multiple size="employees.length">
-        <option
-          *ngFor="let employee of employees"
-          >{{ employee.userName }}</option
-        >
+      <div class="larger-width-divider"></div>
+      <input type="text" class="search-box" placeholder="Search..." />
+      <select
+        name="employees"
+        class="form-control"
+        multiple
+        size="employees.length"
+        formControlName="assignedEmployees"
+      >
+        <ng-container *ngIf="newProjectForm.get('projectName').valid">
+          <option id="option" *ngFor="let employee of employees">{{
+            employee.userName
+          }}</option>
+        </ng-container>
       </select>
+      <span
+        *ngIf="
+          !newProjectForm.get('assignedEmployees').valid &&
+          newProjectForm.get('assignedEmployees').touched
+        "
+        >Please select at least one employee</span
+      >
     </div>
+    <div>
+      <button
+        type="button"
+        class="add-emp-btn"
+        *ngIf="!addEmployeeBtnClicked"
+        (click)="onEmpBtnClicked()"
+        [disabled]="newProjectForm.invalid"
+      >
+        Add Employees
+      </button>
+      <ng-container *ngIf="addEmployeeBtnClicked" formArrayName="employees">
+        <div *ngFor="let employeesControl of getControls(); let i = index">
+          <label for="userName">Insert one or multiple Users Names to submit</label>
+          <input type="text" [formControlName]="i"/>
+          <div class="width-divider"></div>
+          <button type="button" class="goto-add-emp-btn">Cancel</button>
+        </div>
+      </ng-container>
+    </div>
+    <div class="height-divider"></div>
     <div class="alert-box-actions">
-      <button type="submit">Create</button>
-      <div class="divider"></div>
-      <button type="submit" (click)="onClose()">Cancel</button>
+      <button type="submit" class="submit" [disabled]="newProjectForm.invalid">
+        Create
+      </button>
+      <div class="width-divider"></div>
+      <button type="button" (click)="onFormAlertClose()">Cancel</button>
     </div>
   </form>
 </div>

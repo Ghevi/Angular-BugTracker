@@ -1,4 +1,4 @@
-.roboto {
+* {
   font-family: "Roboto Mono", serif;
 }
 
@@ -9,7 +9,6 @@
   max-width: 60rem;
   color: white;
   background-color: #343a40;
-  font-family: "Roboto Mono", serif;
 }
 
 .table {
@@ -23,7 +22,6 @@
   position: relative;
   left: 17rem;
   top: 5rem;
-  font-family: "Roboto Mono", serif;
 }
 
 #user-list {
@@ -36,7 +34,6 @@
 #submit-form {
   position: relative;
   left: 6rem;
-  font-family: "Roboto Mono", serif;
 }
 
 #submit {
@@ -69,8 +66,3 @@ h5 {
   left: 11.3rem;
   top: -13rem;
 }
-
-th {
-  font-family: "Roboto Mono", serif;
-}
-

@@ -1,7 +1,7 @@
 import { Component, Output, OnInit } from "@angular/core";
 import { Subject } from "rxjs";
 import { ProjectService } from "src/app/services/project.service";
-import { FormGroup } from "@angular/forms";
+import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
 import { IEmployee } from '../entities/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
 
@@ -12,8 +12,9 @@ import { EmployeeService } from 'src/app/services/employee.service';
 })
 export class AlertComponent implements OnInit {
   closeNewProjectAlert: Subject<boolean> = new Subject<boolean>();
-  newProjectForm: FormGroup;
   employees: IEmployee[];
+  newProjectForm: FormGroup;
+  addEmployeeBtnClicked = false;
 
   constructor(private projectService: ProjectService, private employeeService: EmployeeService) {}
 
@@ -21,11 +22,32 @@ export class AlertComponent implements OnInit {
     this.employeeService.getEmployeeList().subscribe(employees => {
       this.employees = employees;
     })
-    this.newProjectForm = new FormGroup({});
+    this.newProjectForm = new FormGroup({
+      // properties are string so when the files is minified they are not destroyed
+      'projectName': new FormControl(null, Validators.required),
+      'description': new FormControl(null),
+      'assignedEmployees': new FormControl(null, [Validators.required]),
+      'employees': new FormArray([])
+    });
   }
 
-  onClose() {
+  onFormAlertClose() {
     this.projectService.closeNewProjectForm$.next(true);
+  }
+
+  onSubmit() {
+    console.log(this.newProjectForm);
+    this.onFormAlertClose();
+  }
+
+  onEmpBtnClicked() {
+    this.addEmployeeBtnClicked = true;
+    const control = new FormControl(null, Validators.required);
+    (<FormArray>this.newProjectForm.get('employees')).push(control);
+  }
+
+  getControls() {
+    return (<FormArray>this.newProjectForm.get('hobbies')).controls;
   }
 
 //   employeeMouseDown( event: any ) {
