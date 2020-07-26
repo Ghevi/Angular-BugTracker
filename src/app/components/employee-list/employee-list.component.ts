@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { IEmployee } from "src/app/common/employee";
+import { IEmployee } from "src/app/common/entities/employee";
 import { EmployeeService } from "src/app/services/employee.service";
 import { NgForm } from "@angular/forms";
 import { Subscription } from "rxjs";
@@ -14,7 +14,7 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class EmployeeListComponent implements OnInit, OnDestroy {
   employees: IEmployee[];
-  renderRoleAssignment: boolean;
+  renderRoleAssignment: boolean = true;
   renderRoleAssignmentSubs: Subscription = new Subscription();
   private baseUrl = "http://localhost:8080/api/employees/";
 
@@ -36,8 +36,8 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
   }
 
   listEmployees() {
-    this.employeeService.getEmployeeList().subscribe((data) => {
-      this.employees = data;
+    this.employeeService.getEmployeeList().subscribe((employees) => {
+      this.employees = employees;
       this.addIdToEmployees();
     });
   }

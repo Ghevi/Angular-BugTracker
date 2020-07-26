@@ -1,20 +1,22 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { HttpClientModule } from "@angular/common/http";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-import { EmployeeListComponent } from './components/employee-list/employee-list.component';
-import { ProjectListComponent } from './components/project-list/project-list.component';
-import { HeaderComponent } from './components/header/header.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { EmployeeListComponent } from "./components/employee-list/employee-list.component";
+import { ProjectListComponent } from "./components/project-list/project-list.component";
+import { HeaderComponent } from "./components/header/header.component";
+import { NavbarComponent } from "./components/navbar/navbar.component";
 
-import { EmployeeService } from './services/employee.service';
-import { ProjectService } from './services/project.service';
-import { TicketsListComponent } from './components/tickets-list/tickets-list.component';
-import { ProjectDetailsComponent } from './components/project-list/project-details/project-details.component';
+import { EmployeeService } from "./services/employee.service";
+import { ProjectService } from "./services/project.service";
+import { TicketsListComponent } from "./components/tickets-list/tickets-list.component";
+import { ProjectDetailsComponent } from "./components/project-list/project-details/project-details.component";
+import { AssignedEmployeesComponent } from "./components/project-list/project-details/assigned-employees/assigned-employees.component";
+import { AlertComponent } from "./common/alerts/new-project-form-alert.component";
 
 @NgModule({
   declarations: [
@@ -24,18 +26,18 @@ import { ProjectDetailsComponent } from './components/project-list/project-detai
     HeaderComponent,
     NavbarComponent,
     TicketsListComponent,
-    ProjectDetailsComponent
+    ProjectDetailsComponent,
+    AssignedEmployeesComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  providers: [
-    EmployeeService,
-    ProjectService
-  ],
-  bootstrap: [AppComponent]
+  providers: [EmployeeService, ProjectService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

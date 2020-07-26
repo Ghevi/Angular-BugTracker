@@ -1,5 +1,5 @@
 import { Component, OnInit, Output } from "@angular/core";
-import { Project } from "src/app/common/project";
+import { IProject } from "src/app/common/entities/project";
 import { ProjectService } from "src/app/services/project.service";
 import { Subscription } from "rxjs";
 
@@ -10,9 +10,12 @@ import { Subscription } from "rxjs";
   styleUrls: ["./project-list.component.css"],
 })
 export class ProjectListComponent implements OnInit {
-  projects: Project[];
-  getProjectsSub: Subscription;
   private baseUrl = "http://localhost:8080/api/projects/";
+
+  projects: IProject[];
+  getProjectsSub: Subscription;
+  closeNewProjectFormSubs: Subscription;
+  isNewProjectFormClosed = true;
 
   constructor(private projectService: ProjectService) {
     this.getProjectsSub = new Subscription();
@@ -20,13 +23,16 @@ export class ProjectListComponent implements OnInit {
 
   ngOnInit() {
     this.listProjects();
+    this.closeNewProjectFormSubs = this.projectService.closeNewProjectForm$.subscribe(close => {
+      this.isNewProjectFormClosed = close;
+    });
   }
 
   listProjects() {
     this.getProjectsSub = this.projectService
       .getProjectList()
-      .subscribe((data) => {
-        this.projects = data;
+      .subscribe((projects) => {
+        this.projects = projects;
         this.addIdToProjects();
       });
   }
@@ -39,7 +45,12 @@ export class ProjectListComponent implements OnInit {
     }
   }
 
+  onNewProject() {
+    this.isNewProjectFormClosed = false;
+  }
+
   ngOnDestroy() {
     this.getProjectsSub.unsubscribe();
+    this.closeNewProjectFormSubs.unsubscribe();
   }
 }

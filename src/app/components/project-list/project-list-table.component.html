@@ -1,8 +1,10 @@
 <header>
-  <button type="submit">Create new Project</button>
+  <button type="button" (click)="onNewProject()">Create new Project</button>
 </header>
 
 <main>
+  <app-alert *ngIf="!isNewProjectFormClosed"></app-alert>
+
   <h1>Projects</h1>
 
   <table class="table">

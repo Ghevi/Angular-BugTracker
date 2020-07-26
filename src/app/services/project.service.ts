@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable, Subject } from "rxjs";
 import { map } from "rxjs/operators";
-import { IProject, Project } from "../common/project";
+import { IProject, Project } from "../common/entities/project";
 
 interface GetResponse {
   _embedded: {
@@ -15,10 +15,10 @@ interface GetResponse {
 })
 export class ProjectService {
   private baseUrl = "http://localhost:8080/api/projects";
-  renderRoleAssignment$: Subject<boolean>;
+  renderRoleAssignment$: Subject<boolean> = new Subject<boolean>();
+  closeNewProjectForm$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private httpClient: HttpClient) {
-    this.renderRoleAssignment$ = new Subject<boolean>();
   }
 
   getProjectList(): Observable<Project[]> {

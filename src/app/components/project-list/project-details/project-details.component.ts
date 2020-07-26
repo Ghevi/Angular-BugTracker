@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { ProjectService } from "src/app/services/project.service";
-import { IProject } from "src/app/common/project";
+import { IProject } from "src/app/common/entities/project";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -9,17 +9,14 @@ import { Subscription } from "rxjs";
   templateUrl: "./project-details.component.html",
   styleUrls: ["./project-details.component.css"],
 })
-export class ProjectDetailsComponent
-  implements OnInit, OnDestroy {
+export class ProjectDetailsComponent implements OnInit, OnDestroy {
   project: IProject = {};
-  getProjectSub: Subscription;
+  getProjectSub: Subscription = new Subscription();
 
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjectService
-  ) {
-    this.getProjectSub = new Subscription();
-  }
+  ) {}
 
   ngOnInit() {
     this.projectService.renderRoleAssignment$.next(false);
@@ -32,15 +29,12 @@ export class ProjectDetailsComponent
       .getProject(projectId)
       .subscribe((data) => {
         this.project = data;
-        console.log(this.project);
         this.addIdToProject(projectId);
-        console.log(this.project.id);
       });
   }
 
   addIdToProject(id: number) {
     this.project.id = id;
-    console.log(this.project.id);
     this.route.params.subscribe((params: Params) => {
       this.project.id = id;
     });

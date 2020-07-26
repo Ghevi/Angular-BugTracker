@@ -1,0 +1,45 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 50;
+}
+
+.alert-box {
+  position: fixed;
+  top: 30vh;
+  left: 40vw;
+  width: 20vw;
+  padding: 16px;
+  z-index: 100;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+}
+
+.alert-box-actions {
+  text-align: right;
+}
+
+.divider {
+  width: 10px;
+  height: auto;
+  display: inline-block;
+}
+
+button {
+  color: white;
+  background-color: rgb(150, 153, 155);
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  box-shadow: 0 8px 16px 0 #c8c8bd, 0 6px 20px 0 #c8c8bd;
+  color: white;
+  background-color: #3fa3f5;
+  transition-duration: 0.5s;
+}
