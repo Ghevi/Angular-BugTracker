@@ -43,7 +43,7 @@ export class AlertComponent implements OnInit {
       employees: new FormArray(
         [],
         [this.forbidUsernames.bind(this)],
-        this.takenUsernames
+        this.takenUsernames.bind(this)
       ),
     });
   }
@@ -83,8 +83,10 @@ export class AlertComponent implements OnInit {
     const promise = new Promise<any>((resolve, reject) => {
       const observable = this.employeeService.getEmployeeList().subscribe((employees) => {
         this.employees = employees;
+        const usernames = this.employees.map(employee => employee.userName)
+        console.log(usernames)
         for (let employee of control.value) {
-          if (this.employees.indexOf(employee) !== -1) {
+          if (usernames.indexOf(employee) !== -1) {
             resolve({ usernameIsTaken: true });
           } else {
             resolve(null);
