@@ -5,7 +5,10 @@
 <main>
   <app-alert *ngIf="!isNewProjectFormClosed"></app-alert>
 
-  <h1>Projects</h1>
+  <h1 class="table-title">
+    Projects
+    <input type="text" class="search-box" placeholder="Search..." />
+  </h1>
 
   <table class="table">
     <thead class="thead-dark">

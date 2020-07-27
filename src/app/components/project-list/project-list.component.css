@@ -14,6 +14,30 @@
     / 10fr 0.1fr;
 }
 
+.table-title {
+  position: relative;
+  left: 30vh;
+  max-width: 60rem;
+  top: 10px;
+  color: white;
+  background-color: #343a40;
+}
+
+.table {
+  position: relative;
+  max-width: 60rem;
+  left: 30vh;
+}
+
+.search-box {
+  position: relative;
+  width: 140px;
+  height: 20px;
+  font-size: 38%;
+  left: 600px;
+  bottom: 16px;
+}
+
 header {
   grid-area: header;
 }
@@ -25,6 +49,8 @@ main {
 }
 
 button {
+  position: relative;
+  left: 30vh;
   color: white;
   background-color: rgb(150, 153, 155);
   padding: 10px;
