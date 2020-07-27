@@ -46,6 +46,12 @@ span {
   font-size: 80%;
 }
 
+.last-span {
+  top: -5px;
+  position: relative;
+  font-size: 80%;
+}
+
 .width-divider {
   width: 10px;
   height: auto;

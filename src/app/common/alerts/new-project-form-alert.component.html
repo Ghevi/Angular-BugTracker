@@ -70,16 +70,33 @@
       </button>
       <ng-container *ngIf="addEmployeeBtnClicked" formArrayName="employees">
         <div *ngFor="let employeesControl of getControls(); let i = index">
-          <label for="userName">Insert one or multiple Users Names to submit</label>
-          <input type="text" [formControlName]="i"/>
+          <label for="userName">Insert one or multiple employee</label>
+          <input type="text" [formControlName]="i" />
           <div class="width-divider"></div>
           <button type="button" class="goto-add-emp-btn">Cancel</button>
+          <div>
+            <span
+              class="last-span"
+              *ngIf="
+                !newProjectForm.get('employees').valid &&
+                newProjectForm.get('employees').touched
+              "
+            >
+              <span
+                *ngIf="newProjectForm.get('employees').errors?.nameIsForbidden"
+                >This name is invalid!</span
+              >
+              <span *ngIf="newProjectForm.get('employees').errors?.required"
+                >Add at least on employee</span
+              >
+            </span>
+          </div>
         </div>
       </ng-container>
     </div>
     <div class="height-divider"></div>
     <div class="alert-box-actions">
-      <button type="submit" class="submit" [disabled]="newProjectForm.invalid">
+      <button type="submit" class="submit" [disabled]="!newProjectForm.valid">
         Create
       </button>
       <div class="width-divider"></div>

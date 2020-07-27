@@ -17,6 +17,7 @@ import { TicketsListComponent } from "./components/tickets-list/tickets-list.com
 import { ProjectDetailsComponent } from "./components/project-list/project-details/project-details.component";
 import { AssignedEmployeesComponent } from "./components/project-list/project-details/assigned-employees/assigned-employees.component";
 import { AlertComponent } from "./common/alerts/new-project-form-alert.component";
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { AlertComponent } from "./common/alerts/new-project-form-alert.component
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
