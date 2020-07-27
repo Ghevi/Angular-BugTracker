@@ -73,7 +73,13 @@
           <label for="userName">Insert one or multiple employee</label>
           <input type="text" [formControlName]="i" />
           <div class="width-divider"></div>
-          <button type="button" class="goto-add-emp-btn">Cancel</button>
+          <button
+            type="button"
+            class="goto-add-emp-btn"
+            (click)="onEmpBtnClicked()"
+          >
+            Cancel
+          </button>
           <div>
             <span
               class="last-span"
@@ -89,6 +95,9 @@
               <span *ngIf="newProjectForm.get('employees').errors?.required"
                 >Add at least on employee</span
               >
+              <span
+                *ngIf="newProjectForm.get('employees').errors?.usernameIsTaken"
+              ></span>
             </span>
           </div>
         </div>

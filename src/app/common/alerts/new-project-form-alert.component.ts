@@ -1,5 +1,5 @@
 import { Component, Output, OnInit } from "@angular/core";
-import { Subject } from "rxjs";
+import { Subject, Observable } from "rxjs";
 import { ProjectService } from "src/app/services/project.service";
 import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
 import { IEmployee } from "../entities/employee";
@@ -40,7 +40,11 @@ export class AlertComponent implements OnInit {
       projectName: new FormControl(null, Validators.required),
       description: new FormControl(null),
       assignedEmployees: new FormControl(null, [Validators.required]),
-      employees: new FormArray([], [this.forbidUsernames.bind(this)]),
+      employees: new FormArray(
+        [],
+        [this.forbidUsernames.bind(this)],
+        this.takenUsernames
+      ),
     });
   }
 
@@ -50,13 +54,20 @@ export class AlertComponent implements OnInit {
 
   onSubmit() {
     console.log(this.newProjectForm);
+    this.newProjectForm.reset();
     this.onFormAlertClose();
+    console.log((<FormArray>this.newProjectForm.get("employees")).controls);
   }
 
   onEmpBtnClicked() {
-    this.addEmployeeBtnClicked = true;
-    const control = new FormControl(null, Validators.required);
-    (<FormArray>this.newProjectForm.get("employees")).push(control);
+    if (!this.addEmployeeBtnClicked) {
+      this.addEmployeeBtnClicked = true;
+      const control = new FormControl(null, Validators.required);
+      (<FormArray>this.newProjectForm.get("employees")).push(control);
+    } else {
+      this.addEmployeeBtnClicked = false;
+      (<FormArray>this.newProjectForm.get("employees")).removeAt(0);
+    }
   }
 
   forbidUsernames(control: FormControl): { [s: string]: boolean } {
@@ -66,6 +77,22 @@ export class AlertComponent implements OnInit {
       }
     }
     return null; // this if username is valid, do not return false
+  }
+
+  takenUsernames(control: FormControl): Promise<any> | Observable<any> {
+    const promise = new Promise<any>((resolve, reject) => {
+      const observable = this.employeeService.getEmployeeList().subscribe((employees) => {
+        this.employees = employees;
+        for (let employee of control.value) {
+          if (this.employees.indexOf(employee) !== -1) {
+            resolve({ usernameIsTaken: true });
+          } else {
+            resolve(null);
+          }
+        }
+      });
+    });
+    return promise;
   }
 
   getControls() {
