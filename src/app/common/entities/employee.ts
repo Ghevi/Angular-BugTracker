@@ -8,7 +8,7 @@ export interface IEmployee {
   _links?: _Links;
 }
 
-export class Employee {
+class Employee {
   id: number;
   userName: string;
   email: string;

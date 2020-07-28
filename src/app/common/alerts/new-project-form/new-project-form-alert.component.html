@@ -44,7 +44,7 @@
         size="employees.length"
         formControlName="assignedEmployees"
       >
-        <ng-container *ngIf="newProjectForm.get('projectName').valid">
+        <ng-container>
           <option id="option" *ngFor="let employee of employees">{{
             employee.userName
           }}</option>
@@ -64,7 +64,6 @@
         class="add-emp-btn"
         *ngIf="!addEmployeeBtnClicked"
         (click)="onEmpBtnClicked()"
-        [disabled]="newProjectForm.invalid"
       >
         Add Employees
       </button>

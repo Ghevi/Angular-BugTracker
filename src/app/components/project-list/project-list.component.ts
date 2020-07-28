@@ -37,7 +37,7 @@ export class ProjectListComponent implements OnInit {
       });
   }
 
-  addIdToProjects() {
+  addIdToProjects() { // Temporarily adds ids from HATEOS links
     for (let project of this.projects) {
       let href = project._links.self.href;
       let projectId = +href.replace(this.baseUrl, "");

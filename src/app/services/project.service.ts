@@ -2,11 +2,11 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable, Subject } from "rxjs";
 import { map } from "rxjs/operators";
-import { IProject, Project } from "../common/entities/project";
+import { IProject } from "../common/entities/project";
 
 interface GetResponse {
   _embedded: {
-    projects: Project[];
+    projects: IProject[];
   };
 }
 
@@ -21,7 +21,7 @@ export class ProjectService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getProjectList(): Observable<Project[]> {
+  getProjectList(): Observable<IProject[]> {
     return this.httpClient
       .get<GetResponse>(this.baseUrl)
       .pipe(map((response) => response._embedded.projects));

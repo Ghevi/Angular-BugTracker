@@ -1,9 +1,15 @@
-<h1 id="title" [hidden]="!renderRoleAssignment">Manage User Roles</h1>
+<h1 id="title" [hidden]="!renderRoleAssignment">Manage Employees</h1>
+<div class="new-emp-div">
+  <button class="new-emp">New Employee</button>
+</div>
+<div>
+  <app-new-employee-form></app-new-employee-form>
+</div>
 <h1 class="table-title">Employees</h1>
 <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th>User Name</th>
+      <th>Username</th>
       <th>Email</th>
       <th>Role</th>
       <th style="text-align: end;">References</th>

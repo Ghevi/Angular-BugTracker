@@ -11,17 +11,39 @@
   background-color: #343a40;
 }
 
+#title {
+  position: relative;
+  left: 10vw;
+  top: 5vh;
+}
+
+.new-emp-div {
+  position: relative;
+  left: 10vw;
+  top: 7vh;
+}
+
+.new-emp {
+  position: absolute;
+  color: white;
+  background-color: rgb(150, 153, 155);
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.new-emp:hover {
+  box-shadow: 0 8px 16px 0 #c8c8bd, 0 6px 20px 0 #c8c8bd;
+  color: white;
+  background-color: #3fa3f5;
+  transition-duration: 0.5s;
+}
+
 .table {
   position: relative;
   left: 45rem;
   top: 10.2rem;
   width: 60rem;
-}
-
-#title {
-  position: relative;
-  left: 17rem;
-  top: 5rem;
 }
 
 #user-list {

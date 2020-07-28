@@ -28,6 +28,10 @@ export class EmployeeService {
     return this.httpClient.put<IEmployee>(this.baseUrl + "/" + id, employee);
   }
 
+  addEmployee(employee: IEmployee): Observable<IEmployee> {
+    return this.httpClient.post<IEmployee>(this.baseUrl, employee);
+  }
+
   // getAssignedEmployees(): Observable<IEmployee[]> {
   //   return this.httpClient
   //     .get<GetResponse>(this.baseUrl)

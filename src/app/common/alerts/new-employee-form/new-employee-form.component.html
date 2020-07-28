@@ -1,0 +1,41 @@
+<link
+  href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Roboto+Mono:wght@500&display=swap"
+  type="text"
+  rel="stylesheet"
+/>
+
+<div class="backdrop"></div>
+<div class="alert-box">
+  <form [formGroup]="newEmployeeForm">
+    <h3>New Employee</h3>
+    <div>
+      <label for="userName">Username</label>
+      <input type="text" class="form-control" [formControlName]="'userName'" />
+    </div>
+    <div class="height-divider"></div>
+    <div>
+      <label for="Email">Email</label>
+      <input type="text" class="form-control" formControlName="email" />
+    </div>
+    <div class="height-divider"></div>
+    <div>
+      <label for="role">Role</label>
+      <div>
+        <select name="role" formControlName="role">
+          <option> Admin </option>
+          <option> Manager </option>
+          <option> User </option>
+          <option> Guest </option>
+        </select>
+      </div>
+    </div>
+    <div class="height-divider"></div>
+    <div class="alert-box-actions">
+      <button type="submit" class="submit" (click)="onSubmit()">
+        Create
+      </button>
+      <div class="width-divider"></div>
+      <button type="button">Cancel</button>
+    </div>
+  </form>
+</div>

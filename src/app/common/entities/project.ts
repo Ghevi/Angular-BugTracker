@@ -8,7 +8,7 @@ export interface IProject {
   _links?: _Links;
 }
 
-export class Project implements IProject{
+class Project implements IProject{
   id: number
   projectName: string;
   description: string;

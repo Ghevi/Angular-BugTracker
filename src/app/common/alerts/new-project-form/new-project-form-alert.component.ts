@@ -2,7 +2,7 @@ import { Component, Output, OnInit } from "@angular/core";
 import { Subject, Observable } from "rxjs";
 import { ProjectService } from "src/app/services/project.service";
 import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
-import { IEmployee } from "../entities/employee";
+import { IEmployee } from "../../entities/employee";
 import { EmployeeService } from "src/app/services/employee.service";
 
 @Component({
@@ -46,6 +46,7 @@ export class AlertComponent implements OnInit {
         this.takenUsernames.bind(this)
       ),
     });
+    console.log(this.newProjectForm.valid)
   }
 
   onFormAlertClose() {
@@ -81,18 +82,19 @@ export class AlertComponent implements OnInit {
 
   takenUsernames(control: FormControl): Promise<any> | Observable<any> {
     const promise = new Promise<any>((resolve, reject) => {
-      const observable = this.employeeService.getEmployeeList().subscribe((employees) => {
-        this.employees = employees;
-        const usernames = this.employees.map(employee => employee.userName)
-        console.log(usernames)
-        for (let employee of control.value) {
-          if (usernames.indexOf(employee) !== -1) {
-            resolve({ usernameIsTaken: true });
-          } else {
-            resolve(null);
+      const observable = this.employeeService
+        .getEmployeeList()
+        .subscribe((employees) => {
+          this.employees = employees;
+          const usernames = this.employees.map((employee) => employee.userName);
+          for (let employee of control.value) {
+            if (usernames.indexOf(employee) !== -1) {
+              resolve({ usernameIsTaken: true });
+            } else {
+              resolve(null);
+            }
           }
-        }
-      });
+        });
     });
     return promise;
   }
