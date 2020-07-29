@@ -20,11 +20,11 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-track {
-  background: #1e1e24;
+  background: #0075b9;
 }
 
 body::-webkit-scrollbar-thumb {
-  background: #6649b8;
+  background: #3fa3f5;
 }
 
 main {
@@ -38,8 +38,6 @@ main {
   transition: width 600ms ease;
   overflow: scroll;
 }
-
-
 
 .navbar::-webkit-scrollbar {
   display:none;
@@ -77,6 +75,7 @@ main {
   filter: grayscale(0%) opacity(1);
   background: var(--bg-secondary);
   color: var(--text-secondary);
+  transition-duration: 0.5s;
 }
 
 .link-text-title {
@@ -136,6 +135,7 @@ main {
 
 .navbar:hover .logo svg {
   transform: rotate(-180deg);
+  transition-duration: 0.5s;
 }
 
 /* Small screens */

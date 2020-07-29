@@ -6,7 +6,7 @@ import { IEmployee } from "../../entities/employee";
 import { EmployeeService } from "src/app/services/employee.service";
 
 @Component({
-  selector: "app-alert",
+  selector: "app-project-alert",
   templateUrl: "./new-project-form-alert.component.html",
   styleUrls: ["./new-project-form-alert.component.css"],
 })
@@ -46,7 +46,6 @@ export class AlertComponent implements OnInit {
         this.takenUsernames.bind(this)
       ),
     });
-    console.log(this.newProjectForm.valid)
   }
 
   onFormAlertClose() {

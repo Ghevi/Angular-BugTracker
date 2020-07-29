@@ -1,67 +1,74 @@
-<h1 id="title" [hidden]="!renderRoleAssignment">Manage Employees</h1>
+<h1 class="title" [hidden]="!renderRoleAssignment">Manage Employees</h1>
 <div class="new-emp-div">
-  <button class="new-emp">New Employee</button>
-</div>
-<div>
-  <app-new-employee-form></app-new-employee-form>
-</div>
-<h1 class="table-title">Employees</h1>
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th>Username</th>
-      <th>Email</th>
-      <th>Role</th>
-      <th style="text-align: end;">References</th>
-    </tr>
-  </thead>
+  <button class="new-emp" (click)="onAddEmployee()">New Employee</button>
 
-  <tbody class="roboto">
-    <tr *ngFor="let tempEmployee of employees">
-      <td class="align-middle">{{ tempEmployee.userName }}</td>
-      <td class="align-middle">{{ tempEmployee.email }}</td>
-      <td class="align-middle">{{ tempEmployee.role }}</td>
-      <td style="text-align: end;" class="align-middle">
-        <a routerLink="/projects">Assigned Projects</a>
-        <br />
-        <a href="#">Assigned Tickets</a>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<form [hidden]="!renderRoleAssignment" (ngSubmit)="onSubmit(f)" #f="ngForm">
-  <div id="submit-form">
-    <h5>Select 1 or multiple users</h5>
-    <select
-      required
-      name="userName"
-      ngModel
-      id="user-list"
-      multiple
-      size="employees.length"
-    >
-      <option
-        name="option"
-        *ngFor="let employee of employees; let indexOfEmployee = index"
-        >{{ employee.userName }}</option
-      >
-    </select>
-    <h5 id="role">Select the role to assign</h5>
-    <select required name="role" ngModel id="roles-list">
-      <option value="" disabled selected hidden>--No role selected--</option>
-      <option> Admin </option>
-      <option> Manager </option>
-      <option> User </option>
-      <option> Guest </option>
-    </select>
-    <button
-      id="submit"
-      type="submit"
-      class="btn btn-success"
-      [disabled]="!f.valid"
-    >
-      Submit
-    </button>
+  <div>
+    <app-new-employee-form
+      *ngIf="!isNewEmployeeFormClosed"
+    ></app-new-employee-form>
   </div>
-</form>
+  <div class="table-title">
+    <h1>Employees</h1>
+  </div>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th style="text-align: end;">References</th>
+      </tr>
+    </thead>
+
+    <tbody class="roboto">
+      <tr *ngFor="let tempEmployee of employees">
+        <td class="align-middle">{{ tempEmployee.userName }}</td>
+        <td class="align-middle">{{ tempEmployee.email }}</td>
+        <td class="align-middle">{{ tempEmployee.role }}</td>
+        <td style="text-align: end;" class="align-middle">
+          <a routerLink="/projects">Assigned Projects</a>
+          <br />
+          <a href="#">Assigned Tickets</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="form">
+    <form *ngIf="renderRoleAssignment" (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <div id="submit-form">
+        <h5>Select 1 or multiple users</h5>
+        <select
+          required
+          name="userName"
+          ngModel
+          id="user-list"
+          size="employees.length"
+        >
+        <option value="none" hidden>--No Employee selected--</option>
+          <option
+            name="option"
+            *ngFor="let employee of employees; let indexOfEmployee = index"
+            >{{ employee.userName }}</option
+          >
+        </select>
+          <h5 id="role">Select the role to assign</h5>
+          <select required name="role" ngModel id="roles-list">
+            <option value="" hidden
+              >--No role selected--</option
+            >
+            <option> Admin </option>
+            <option> Manager </option>
+            <option> User </option>
+            <option> Guest </option>
+          </select>
+          <button
+            type="submit"
+            class="submit"
+            [disabled]="!f.valid"
+          >
+            Submit
+          </button>
+      </div>
+    </form>
+  </div>
+</div>

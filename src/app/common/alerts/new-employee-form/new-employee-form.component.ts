@@ -27,6 +27,13 @@ export class NewEmployeeFormComponent implements OnInit {
     this.employeeService.addEmployee(employee).subscribe(data => {
       console.log(data);
     });
+    this.newEmployeeForm.reset();
+    this.onCloseEmployeeForm();
+  }
+
+  onCloseEmployeeForm() {
+    this.employeeService.closeNewEmployeeForm$.next(true);
+    console.log('ciao')
   }
 
   // getControls() {

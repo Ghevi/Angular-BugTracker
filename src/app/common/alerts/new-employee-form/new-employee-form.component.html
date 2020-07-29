@@ -4,9 +4,9 @@
   rel="stylesheet"
 />
 
-<div class="backdrop"></div>
+<div class="backdrop" (click)='onCloseEmployeeForm()'></div>
 <div class="alert-box">
-  <form [formGroup]="newEmployeeForm">
+  <form [formGroup]="newEmployeeForm" (ngSubmit)="onSubmit()">
     <h3>New Employee</h3>
     <div>
       <label for="userName">Username</label>
@@ -35,7 +35,7 @@
         Create
       </button>
       <div class="width-divider"></div>
-      <button type="button">Cancel</button>
+      <button type="button" (click)="onCloseEmployeeForm()">Cancel</button>
     </div>
   </form>
 </div>

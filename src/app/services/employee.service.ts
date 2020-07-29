@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { map } from "rxjs/operators";
 import { IEmployee } from "../common/entities/employee";
 
@@ -15,6 +15,7 @@ interface GetResponse {
 })
 export class EmployeeService {
   private baseUrl = "http://localhost:8080/api/employees";
+  closeNewEmployeeForm$ : Subject<boolean> = new Subject<boolean>();
 
   constructor(private httpClient: HttpClient) {}
 
@@ -31,10 +32,4 @@ export class EmployeeService {
   addEmployee(employee: IEmployee): Observable<IEmployee> {
     return this.httpClient.post<IEmployee>(this.baseUrl, employee);
   }
-
-  // getAssignedEmployees(): Observable<IEmployee[]> {
-  //   return this.httpClient
-  //     .get<GetResponse>(this.baseUrl)
-  //     .pipe(map((response) => response._embedded.employees));
-  // }
 }

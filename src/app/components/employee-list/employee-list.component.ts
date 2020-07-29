@@ -16,7 +16,9 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
   employees: IEmployee[];
   renderRoleAssignment: boolean = true;
   renderRoleAssignmentSubs: Subscription = new Subscription();
+  closeEmployeeFormSubs: Subscription = new Subscription();
   private baseUrl = "http://localhost:8080/api/employees/";
+  isNewEmployeeFormClosed = true;
 
   constructor(
     private employeeService: EmployeeService,
@@ -24,15 +26,18 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute
   ) {}
 
+  // Main page
+
   ngOnInit() {
     const routePath = this.route.snapshot.routeConfig.path;
     console.log(routePath);
     if (routePath === "employees") {
       this.listEmployees();
-      return;
+      this.closeEmployeeForm();
+    } else {
+      this.displayRoleAssignment();
+      this.listEmployees();
     }
-    this.displayRoleAssignment();
-    this.listEmployees();
   }
 
   listEmployees() {
@@ -71,7 +76,21 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Open new employee form
+  onAddEmployee() {
+    this.isNewEmployeeFormClosed = false;
+  }
+
+  closeEmployeeForm() {
+    this.closeEmployeeFormSubs = this.employeeService.closeNewEmployeeForm$.subscribe(
+      (close) => {
+        this.isNewEmployeeFormClosed = close;
+      }
+    );
+  }
+
   ngOnDestroy() {
     this.renderRoleAssignmentSubs.unsubscribe();
+    this.closeEmployeeFormSubs.unsubscribe();
   }
 }

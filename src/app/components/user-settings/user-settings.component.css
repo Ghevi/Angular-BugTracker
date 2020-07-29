@@ -1,0 +1,22 @@
+.submit {
+  position: relative;
+  left: 11.5rem;
+  width: 18.6rem;
+  color: white;
+  background-color: rgb(214, 217, 219);
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.submit:hover:enabled {
+  box-shadow: 0 8px 16px 0 #c8c8bd, 0 6px 20px 0 #c8c8bd;
+  color: white;
+  background-color: #3fa3f5;
+  transition-duration: 0.5s;
+}
+
+.submit:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}

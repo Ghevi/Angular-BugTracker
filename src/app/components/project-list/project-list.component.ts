@@ -14,18 +14,18 @@ export class ProjectListComponent implements OnInit {
 
   projects: IProject[];
   getProjectsSub: Subscription;
-  closeNewProjectFormSubs: Subscription;
+  closeNewProjectFormSubs: Subscription = new Subscription();
   isNewProjectFormClosed = true;
 
-  constructor(private projectService: ProjectService) {
-    this.getProjectsSub = new Subscription();
-  }
+  constructor(private projectService: ProjectService) {}
 
   ngOnInit() {
     this.listProjects();
-    this.closeNewProjectFormSubs = this.projectService.closeNewProjectForm$.subscribe(close => {
-      this.isNewProjectFormClosed = close;
-    });
+    this.closeNewProjectFormSubs = this.projectService.closeNewProjectForm$.subscribe(
+      (close) => {
+        this.isNewProjectFormClosed = close;
+      }
+    );
   }
 
   listProjects() {
@@ -37,7 +37,8 @@ export class ProjectListComponent implements OnInit {
       });
   }
 
-  addIdToProjects() { // Temporarily adds ids from HATEOS links
+  addIdToProjects() {
+    // Temporarily adds ids from HATEOS links
     for (let project of this.projects) {
       let href = project._links.self.href;
       let projectId = +href.replace(this.baseUrl, "");

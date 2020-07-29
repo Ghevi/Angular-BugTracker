@@ -2,25 +2,21 @@
   font-family: "Roboto Mono", serif;
 }
 
-.table-title {
-  position: relative;
-  left: 45rem;
-  top: 10.7rem;
-  max-width: 60rem;
-  color: white;
-  background-color: #343a40;
+:host {
+  max-width: 100vw;
+  max-height: 100vh;
 }
 
-#title {
+.title {
   position: relative;
-  left: 10vw;
-  top: 5vh;
+  left: 5vw;
 }
 
 .new-emp-div {
   position: relative;
-  left: 10vw;
-  top: 7vh;
+  max-width: 80vw;
+  left: 5vw;
+  top: 1vh;
 }
 
 .new-emp {
@@ -39,11 +35,34 @@
   transition-duration: 0.5s;
 }
 
+.table-title {
+  position: relative;
+  left: 26vw;
+  max-width: 60rem;
+  height: 4rem;
+  color: white;
+  background-color: #343a40;
+}
+
+.table-title > h1 {
+  margin-left: 0.6rem;
+}
+
 .table {
   position: relative;
-  left: 45rem;
-  top: 10.2rem;
+  left: 26vw;
+  top: -1vh;
   width: 60rem;
+}
+
+.form {
+  position: relative;
+  left: -14.5vw;
+  top: -30vh;
+}
+
+.role-selector {
+  top: -3vh;
 }
 
 #user-list {
@@ -55,17 +74,31 @@
 
 #submit-form {
   position: relative;
+  max-width: 20vw;
   left: 6rem;
 }
 
-#submit {
+.submit {
   position: relative;
-  left: -7.2rem;
-  top: -10rem;
+  left: 11.5rem;
+  top: -9rem;
   width: 18.6rem;
+  background-color: rgb(150, 153, 155);
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
 }
 
-button:disabled {
+.submit:hover:enabled {
+  box-shadow: 0 8px 16px 0 #c8c8bd, 0 6px 20px 0 #c8c8bd;
+  color: white;
+  background-color: #3fa3f5;
+  transition-duration: 0.5s;
+}
+
+.submit:disabled {
+  background-color: rgb(214, 217, 219);
   cursor: not-allowed;
   pointer-events: all !important;
 }
@@ -73,7 +106,7 @@ button:disabled {
 #roles-list {
   position: relative;
   left: 11.4rem;
-  top: -13rem;
+  top: -15rem;
   width: 18.6rem;
 }
 
@@ -86,5 +119,6 @@ h5 {
 #role {
   position: relative;
   left: 11.3rem;
-  top: -13rem;
+  top: -15rem;
+  max-width: 20vw;
 }

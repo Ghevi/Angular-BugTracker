@@ -19,6 +19,7 @@ import { AssignedEmployeesComponent } from "./components/project-list/project-de
 import { AlertComponent } from "./common/alerts/new-project-form/new-project-form-alert.component";
 import { CommonModule } from '@angular/common';
 import { NewEmployeeFormComponent } from './common/alerts/new-employee-form/new-employee-form.component';
+import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { NewEmployeeFormComponent } from './common/alerts/new-employee-form/new-
     AssignedEmployeesComponent,
     AlertComponent,
     NewEmployeeFormComponent,
+    UserSettingsComponent,
   ],
   imports: [
     BrowserModule,
