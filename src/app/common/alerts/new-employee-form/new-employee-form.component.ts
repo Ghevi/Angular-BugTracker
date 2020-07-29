@@ -10,6 +10,7 @@ import { IEmployee } from "../../entities/employee";
 })
 export class NewEmployeeFormComponent implements OnInit {
   newEmployeeForm: FormGroup;
+  formSubmitted = false;
 
   constructor(private employeeService: EmployeeService) {}
 
@@ -24,11 +25,13 @@ export class NewEmployeeFormComponent implements OnInit {
   onSubmit(){
     const employee: IEmployee = this.newEmployeeForm.value;
     console.log(employee)
-    this.employeeService.addEmployee(employee).subscribe(data => {
-      console.log(data);
+    this.employeeService.addEmployee(employee).subscribe(() => {
+      this.formSubmitted = true;
     });
-    this.newEmployeeForm.reset();
-    this.onCloseEmployeeForm();
+    setTimeout(() => {
+      this.newEmployeeForm.reset();
+      this.onCloseEmployeeForm();
+    }, 1500)
   }
 
   onCloseEmployeeForm() {
@@ -40,3 +43,4 @@ export class NewEmployeeFormComponent implements OnInit {
   //   return (<FormArray>this.newEmployeeForm.get("employees")).controls;
   // }
 }
+

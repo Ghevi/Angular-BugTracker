@@ -32,4 +32,8 @@ export class EmployeeService {
   addEmployee(employee: IEmployee): Observable<IEmployee> {
     return this.httpClient.post<IEmployee>(this.baseUrl, employee);
   }
+
+  deleteEmployee(id: number): Observable<IEmployee> {
+    return this.httpClient.delete<IEmployee>(this.baseUrl + '/' + id);
+  }
 }

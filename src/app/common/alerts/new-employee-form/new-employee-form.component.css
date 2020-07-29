@@ -71,6 +71,12 @@ button:hover {
   line-height: 1vh;
 }
 
+.created {
+  position: relative;
+  left: 9.45vw;
+  top: 0.7vh;
+}
+
 .add-emp-btn:disabled {
   cursor: not-allowed;
   -webkit-box-shadow: none;

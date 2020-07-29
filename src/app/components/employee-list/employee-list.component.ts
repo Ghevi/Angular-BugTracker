@@ -81,6 +81,11 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
     this.isNewEmployeeFormClosed = false;
   }
 
+  onDeleteEmployee(index: number) {
+    const employeeIndex = this.employees[index].id;
+    this.employeeService.deleteEmployee(employeeIndex).subscribe();
+  }
+
   closeEmployeeForm() {
     this.closeEmployeeFormSubs = this.employeeService.closeNewEmployeeForm$.subscribe(
       (close) => {

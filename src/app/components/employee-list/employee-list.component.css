@@ -57,31 +57,14 @@
 
 .form {
   position: relative;
-  left: -14.5vw;
-  top: -30vh;
-}
-
-.role-selector {
-  top: -3vh;
+  top: 10rem;
 }
 
 #user-list {
-  position: relative;
-  left: 11.4rem;
-  top: -17.5rem;
   width: 19.3rem;
 }
 
-#submit-form {
-  position: relative;
-  max-width: 20vw;
-  left: 6rem;
-}
-
 .submit {
-  position: relative;
-  left: 11.5rem;
-  top: -9rem;
   width: 18.6rem;
   background-color: rgb(150, 153, 155);
   color: white;
@@ -104,21 +87,27 @@
 }
 
 #roles-list {
-  position: relative;
-  left: 11.4rem;
-  top: -15rem;
   width: 18.6rem;
 }
 
-h5 {
-  position: relative;
-  left: 11.3rem;
-  top: -18rem;
+#role {
+  max-width: 20vw;
 }
 
-#role {
+.delete-btn {
   position: relative;
-  left: 11.3rem;
-  top: -15rem;
-  max-width: 20vw;
+  top: 20px;
+  left: 10px;
+  color: white;
+  background-color: rgb(150, 153, 155);
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+
+.delete-btn:hover {
+  box-shadow: 0 8px 16px 0 #c8c8bd, 0 6px 20px 0 #c8c8bd;
+  color: white;
+  background-color: #eb0505;
+  transition-duration: 0.5s;
 }

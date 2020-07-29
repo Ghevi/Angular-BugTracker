@@ -2,6 +2,46 @@
 <div class="new-emp-div">
   <button class="new-emp" (click)="onAddEmployee()">New Employee</button>
 
+  <div class="form">
+    <form *ngIf="renderRoleAssignment" (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <div id="submit-form">
+        <h5>
+          Select 1 or multiple users
+          <div>
+            <select
+              required
+              name="userName"
+              ngModel
+              id="user-list"
+              size="employees.length"
+            >
+              <option value="none" hidden>--No Employee selected--</option>
+              <option
+                name="option"
+                *ngFor="let employee of employees; let indexOfEmployee = index"
+                >{{ employee.userName }}</option
+              >
+            </select>
+          </div>
+        </h5>
+        <h5 id="role">Select the role to assign</h5>
+        <div>
+          <select required name="role" ngModel id="roles-list">
+            <option value="" hidden>--No role selected--</option>
+            <option> Admin </option>
+            <option> Manager </option>
+            <option> User </option>
+            <option> Guest </option>
+          </select>
+          <div>
+            <button type="submit" class="submit" [disabled]="!f.valid">
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
   <div>
     <app-new-employee-form
       *ngIf="!isNewEmployeeFormClosed"
@@ -16,15 +56,19 @@
         <th>Username</th>
         <th>Email</th>
         <th>Role</th>
+        <th>Actions</th>
         <th style="text-align: end;">References</th>
       </tr>
     </thead>
 
     <tbody class="roboto">
-      <tr *ngFor="let tempEmployee of employees">
+      <tr *ngFor="let tempEmployee of employees; let i = index">
         <td class="align-middle">{{ tempEmployee.userName }}</td>
         <td class="align-middle">{{ tempEmployee.email }}</td>
         <td class="align-middle">{{ tempEmployee.role }}</td>
+        <button type="button" class="delete-btn" (click)="onDeleteEmployee(i)">
+          Delete
+        </button>
         <td style="text-align: end;" class="align-middle">
           <a routerLink="/projects">Assigned Projects</a>
           <br />
@@ -33,42 +77,4 @@
       </tr>
     </tbody>
   </table>
-  <div class="form">
-    <form *ngIf="renderRoleAssignment" (ngSubmit)="onSubmit(f)" #f="ngForm">
-      <div id="submit-form">
-        <h5>Select 1 or multiple users</h5>
-        <select
-          required
-          name="userName"
-          ngModel
-          id="user-list"
-          size="employees.length"
-        >
-        <option value="none" hidden>--No Employee selected--</option>
-          <option
-            name="option"
-            *ngFor="let employee of employees; let indexOfEmployee = index"
-            >{{ employee.userName }}</option
-          >
-        </select>
-          <h5 id="role">Select the role to assign</h5>
-          <select required name="role" ngModel id="roles-list">
-            <option value="" hidden
-              >--No role selected--</option
-            >
-            <option> Admin </option>
-            <option> Manager </option>
-            <option> User </option>
-            <option> Guest </option>
-          </select>
-          <button
-            type="submit"
-            class="submit"
-            [disabled]="!f.valid"
-          >
-            Submit
-          </button>
-      </div>
-    </form>
-  </div>
 </div>
