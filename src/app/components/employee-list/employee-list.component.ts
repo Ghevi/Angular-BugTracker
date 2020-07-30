@@ -19,6 +19,7 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
   closeEmployeeFormSubs: Subscription = new Subscription();
   private baseUrl = "http://localhost:8080/api/employees/";
   isNewEmployeeFormClosed = true;
+  isEmployeeDeleted = false;
 
   constructor(
     private employeeService: EmployeeService,
@@ -76,14 +77,21 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Open new employee form
-  onAddEmployee() {
-    this.isNewEmployeeFormClosed = false;
-  }
-
   onDeleteEmployee(index: number) {
     const employeeIndex = this.employees[index].id;
-    this.employeeService.deleteEmployee(employeeIndex).subscribe();
+    this.employeeService.deleteEmployee(employeeIndex).subscribe(() => {
+      this.isEmployeeDeleted = true;
+      setTimeout(() => {
+        this.isEmployeeDeleted = false;
+      }, 2000)
+      this.employees = this.employees.slice();
+    });
+  }
+
+  // Toggle employee form
+
+  onAddEmployee() {
+    this.isNewEmployeeFormClosed = false;
   }
 
   closeEmployeeForm() {

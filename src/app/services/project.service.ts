@@ -21,6 +21,8 @@ export class ProjectService {
   constructor(private httpClient: HttpClient) {
   }
 
+  // Backend requests
+
   getProjectList(): Observable<IProject[]> {
     return this.httpClient
       .get<GetResponse>(this.baseUrl)
@@ -30,4 +32,15 @@ export class ProjectService {
   getProject(id: number): Observable<IProject> {
     return this.httpClient.get<IProject>(this.baseUrl + "/" + id);
   }
+
+  addProject(project: IProject): Observable<IProject> {
+    return this.httpClient.post<IProject>(this.baseUrl, project);
+  }
+
+  // Components communication
+
+  closeNewProjectForm() {
+    this.closeNewProjectForm$.next(true);
+  }
+
 }

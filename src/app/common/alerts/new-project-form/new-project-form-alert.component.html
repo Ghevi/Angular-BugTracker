@@ -89,11 +89,12 @@
             >
               <span
                 *ngIf="newProjectForm.get('employees').errors?.nameIsForbidden"
-                >This name is invalid!</span
-              >
-              <span *ngIf="newProjectForm.get('employees').errors?.required"
-                >Add at least on employee</span
-              >
+                >This name is invalid!
+                </span
+                >
+                <span *ngIf="newProjectForm.get('employees').errors?.required"
+                  >Add at least on employee</span
+                >
               <span
                 *ngIf="newProjectForm.get('employees').errors?.usernameIsTaken"
               >The username is taken</span>

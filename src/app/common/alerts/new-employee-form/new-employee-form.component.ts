@@ -23,20 +23,18 @@ export class NewEmployeeFormComponent implements OnInit {
   }
 
   onSubmit(){
-    const employee: IEmployee = this.newEmployeeForm.value;
-    console.log(employee)
-    this.employeeService.addEmployee(employee).subscribe(() => {
+    const newEmployee: IEmployee = this.newEmployeeForm.value;
+    this.employeeService.addEmployee(newEmployee).subscribe(() => {
       this.formSubmitted = true;
     });
+    this.newEmployeeForm.reset();
     setTimeout(() => {
-      this.newEmployeeForm.reset();
       this.onCloseEmployeeForm();
     }, 1500)
   }
 
   onCloseEmployeeForm() {
-    this.employeeService.closeNewEmployeeForm$.next(true);
-    console.log('ciao')
+    this.employeeService.closeNewEmployeeForm();
   }
 
   // getControls() {

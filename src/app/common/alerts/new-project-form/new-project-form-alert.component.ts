@@ -4,6 +4,7 @@ import { ProjectService } from "src/app/services/project.service";
 import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
 import { IEmployee } from "../../entities/employee";
 import { EmployeeService } from "src/app/services/employee.service";
+import { IProject } from "../../entities/project";
 
 @Component({
   selector: "app-project-alert",
@@ -13,6 +14,8 @@ import { EmployeeService } from "src/app/services/employee.service";
 export class AlertComponent implements OnInit {
   closeNewProjectAlert: Subject<boolean> = new Subject<boolean>();
   employees: IEmployee[];
+  newProjectFromServer: IProject;
+  newEmployees: IEmployee[] = [];
   newProjectForm: FormGroup;
   addEmployeeBtnClicked = false;
   forbiddenUsernames = [
@@ -25,6 +28,7 @@ export class AlertComponent implements OnInit {
     "developer",
     "guest",
   ];
+  private projectUrl = "http://localhost:8080/api/projects/";
 
   constructor(
     private projectService: ProjectService,
@@ -40,29 +44,56 @@ export class AlertComponent implements OnInit {
       projectName: new FormControl(null, Validators.required),
       description: new FormControl(null),
       assignedEmployees: new FormControl(null, [Validators.required]),
-      employees: new FormArray(
-        [],
-        [this.forbidUsernames.bind(this)],
-        this.takenUsernames.bind(this)
-      ),
+      employees: new FormArray([]),
     });
   }
 
   onFormAlertClose() {
-    this.projectService.closeNewProjectForm$.next(true);
+    this.projectService.closeNewProjectForm();
+    this.newProjectForm.reset();
   }
 
   onSubmit() {
-    console.log(this.newProjectForm);
-    this.newProjectForm.reset();
+    const newProject = this.newProjectForm.value;
+    console.log(newProject);
+    newProject.stage = "In progress";
+
+    for (let assignedEmp of newProject.assignedEmployees) {
+      let newEmp = {
+        userName: assignedEmp,
+        email: `${newProject.assignedEmployees}@tempEmail.com`,
+        role: "User",
+      };
+      this.newEmployees.push(newEmp);
+    }
+
+    this.projectService.addProject(newProject).subscribe((data) => {
+      this.newProjectFromServer = data;
+      const href = this.newProjectFromServer._links.self.href;
+      const projectId = +href.replace(this.projectUrl, "");
+      // let newEmp2 = {
+      //   userName: "prova",
+      //   email: "prova@gmail.com",
+      //   role: "User",
+      // };
+      this.employeeService.addEmployeesToProject(this.newEmployees, projectId);
+    });
     this.onFormAlertClose();
-    console.log((<FormArray>this.newProjectForm.get("employees")).controls);
   }
+
+  // assignedEmployees: ["lol"]
+  // description: "sdg"
+  // employees: []
+  // projectName: "fgds"
 
   onEmpBtnClicked() {
     if (!this.addEmployeeBtnClicked) {
       this.addEmployeeBtnClicked = true;
-      const control = new FormControl(null, Validators.required);
+      const control = new FormArray(
+        null,
+        [Validators.required, this.forbidUsernames.bind(this)],
+        this.takenUsernames.bind(this)
+      );
       (<FormArray>this.newProjectForm.get("employees")).push(control);
     } else {
       this.addEmployeeBtnClicked = false;
@@ -71,6 +102,7 @@ export class AlertComponent implements OnInit {
   }
 
   forbidUsernames(control: FormControl): { [s: string]: boolean } {
+    console.log("works");
     for (let employee of control.value) {
       if (this.forbiddenUsernames.indexOf(employee) !== -1) {
         return { nameIsForbidden: true };
@@ -80,6 +112,7 @@ export class AlertComponent implements OnInit {
   }
 
   takenUsernames(control: FormControl): Promise<any> | Observable<any> {
+    console.log("works");
     const promise = new Promise<any>((resolve, reject) => {
       const observable = this.employeeService
         .getEmployeeList()

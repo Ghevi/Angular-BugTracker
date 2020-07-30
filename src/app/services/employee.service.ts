@@ -14,26 +14,40 @@ interface GetResponse {
   providedIn: "root",
 })
 export class EmployeeService {
-  private baseUrl = "http://localhost:8080/api/employees";
   closeNewEmployeeForm$ : Subject<boolean> = new Subject<boolean>();
+  private employeesBaseUrl = "http://localhost:8080/api/employees";
+  private projectUrl = "http://localhost:8080/api/projects"
+
 
   constructor(private httpClient: HttpClient) {}
 
+  // Backend requests
+
   getEmployeeList(): Observable<IEmployee[]> {
     return this.httpClient
-      .get<GetResponse>(this.baseUrl)
+      .get<GetResponse>(this.employeesBaseUrl)
       .pipe(map((response) => response._embedded.employees));
   }
 
   setEmployeeRole(employee: IEmployee, id: number): Observable<IEmployee> {
-    return this.httpClient.put<IEmployee>(this.baseUrl + "/" + id, employee);
+    return this.httpClient.put<IEmployee>(this.employeesBaseUrl + "/" + id, employee);
   }
 
   addEmployee(employee: IEmployee): Observable<IEmployee> {
-    return this.httpClient.post<IEmployee>(this.baseUrl, employee);
+    return this.httpClient.post<IEmployee>(this.employeesBaseUrl, employee);
+  }
+
+  addEmployeesToProject(employee: IEmployee[], projId: number): Observable<GetResponse> {
+    return this.httpClient.post<GetResponse>(`${this.projectUrl}/${projId}/employees`, employee)
   }
 
   deleteEmployee(id: number): Observable<IEmployee> {
-    return this.httpClient.delete<IEmployee>(this.baseUrl + '/' + id);
+    return this.httpClient.delete<IEmployee>(this.employeesBaseUrl + '/' + id);
+  }
+
+  // Components communication
+
+  closeNewEmployeeForm() {
+    this.closeNewEmployeeForm$.next(true);
   }
 }
