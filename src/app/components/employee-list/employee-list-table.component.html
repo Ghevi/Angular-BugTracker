@@ -1,6 +1,6 @@
 <h1 class="title" [hidden]="!renderRoleAssignment">Manage Employees</h1>
 <div class="new-emp-div">
-  <button class="new-emp" (click)="onAddEmployee()">New Employee</button>
+  <button class="new-emp" routerLink="new-employee">New Employee</button>
 
   <div class="form">
     <form *ngIf="renderRoleAssignment" (ngSubmit)="onSubmit(f)" #f="ngForm">
@@ -15,7 +15,12 @@
               id="user-list"
               size="employees.length"
             >
-              <option value="none" hidden>--No Employee selected--</option>
+              <option value="none" *ngIf="employees?.length > 0" hidden
+                >--No Employee selected--</option
+              >
+              <option value="none" *ngIf="employees?.length == 0" hidden
+                >--There are no employees--</option
+              >
               <option
                 name="option"
                 *ngFor="let employee of employees; let indexOfEmployee = index"
@@ -43,9 +48,7 @@
     </form>
   </div>
   <div>
-    <app-new-employee-form
-      *ngIf="!isNewEmployeeFormClosed"
-    ></app-new-employee-form>
+    <router-outlet></router-outlet>
   </div>
   <div class="table-title">
     <h1>Employees</h1>
@@ -62,6 +65,12 @@
     </thead>
 
     <tbody class="roboto">
+      <div
+        style="position: relative; left: 30vh;"
+        *ngIf="employees?.length == 0"
+      >
+        There are no employees in the database
+      </div>
       <tr *ngFor="let tempEmployee of employees; let i = index">
         <td class="align-middle">{{ tempEmployee.userName }}</td>
         <td class="align-middle">{{ tempEmployee.email }}</td>

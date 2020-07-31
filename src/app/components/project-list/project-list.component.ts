@@ -13,19 +13,14 @@ export class ProjectListComponent implements OnInit {
   private baseUrl = "http://localhost:8080/api/projects/";
 
   projects: IProject[];
-  getProjectsSub: Subscription;
-  closeNewProjectFormSubs: Subscription = new Subscription();
-  isNewProjectFormClosed = true;
+  getProjectsSub: Subscription = new Subscription;
+  addProjectAfterSubmitSubs: Subscription = new Subscription;
 
   constructor(private projectService: ProjectService) {}
 
   ngOnInit() {
     this.listProjects();
-    this.closeNewProjectFormSubs = this.projectService.closeNewProjectForm$.subscribe(
-      (close) => {
-        this.isNewProjectFormClosed = close;
-      }
-    );
+    this.addProjectAfterSubmit();
   }
 
   listProjects() {
@@ -46,12 +41,16 @@ export class ProjectListComponent implements OnInit {
     }
   }
 
-  onNewProject() {
-    this.isNewProjectFormClosed = false;
+  addProjectAfterSubmit() {
+    this.addProjectAfterSubmitSubs = this.projectService.addProjectToTable$.subscribe(
+      (newProj) => {
+        this.projects.push(newProj);
+      }
+    );
   }
 
   ngOnDestroy() {
     this.getProjectsSub.unsubscribe();
-    this.closeNewProjectFormSubs.unsubscribe();
+    this.addProjectAfterSubmitSubs.unsubscribe();
   }
 }

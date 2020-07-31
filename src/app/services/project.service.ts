@@ -16,7 +16,7 @@ interface GetResponse {
 export class ProjectService {
   private baseUrl = "http://localhost:8080/api/projects";
   renderRoleAssignment$: Subject<boolean> = new Subject<boolean>();
-  closeNewProjectForm$: Subject<boolean> = new Subject<boolean>();
+  addProjectToTable$: Subject<IProject> = new Subject<IProject>();
 
   constructor(private httpClient: HttpClient) {
   }
@@ -38,9 +38,5 @@ export class ProjectService {
   }
 
   // Components communication
-
-  closeNewProjectForm() {
-    this.closeNewProjectForm$.next(true);
-  }
 
 }

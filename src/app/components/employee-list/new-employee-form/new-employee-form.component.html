@@ -32,11 +32,11 @@
     <div class="height-divider"></div>
     <span class="created" *ngIf="formSubmitted">Created!</span>
     <div class="alert-box-actions">
-      <button type="submit" class="submit" [disabled]="!newEmployeeForm.valid" (click)="onSubmit()">
+      <button type="submit" class="submit" [disabled]="!newEmployeeForm.valid">
         Create
       </button>
       <div class="width-divider"></div>
-      <button type="button" (click)="onCloseEmployeeForm()">Cancel</button>
+      <button type="button" routerLink='..'>Cancel</button>
     </div>
   </form>
 </div>

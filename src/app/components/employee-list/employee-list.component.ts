@@ -1,30 +1,33 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, Output } from "@angular/core";
 import { IEmployee } from "src/app/common/entities/employee";
 import { EmployeeService } from "src/app/services/employee.service";
 import { NgForm } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { ProjectService } from "src/app/services/project.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-employee-list",
   templateUrl: "./employee-list-table.component.html",
-  //templateUrl: './employee-list.component.html',
+  // templateUrl: './employee-list.component.html',
   styleUrls: ["./employee-list.component.css"],
 })
 export class EmployeeListComponent implements OnInit, OnDestroy {
   employees: IEmployee[];
   renderRoleAssignment: boolean = true;
   renderRoleAssignmentSubs: Subscription = new Subscription();
-  closeEmployeeFormSubs: Subscription = new Subscription();
+  addEmpAfterSubmitSubs: Subscription = new Subscription();
+  onDeleteEmployeeSubs: Subscription = new Subscription();
   private baseUrl = "http://localhost:8080/api/employees/";
-  isNewEmployeeFormClosed = true;
   isEmployeeDeleted = false;
+
+  @Output() cat = 10;
 
   constructor(
     private employeeService: EmployeeService,
     private projectService: ProjectService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   // Main page
@@ -34,7 +37,7 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
     console.log(routePath);
     if (routePath === "employees") {
       this.listEmployees();
-      this.closeEmployeeForm();
+      this.addEmployeeAfterSubmit();
     } else {
       this.displayRoleAssignment();
       this.listEmployees();
@@ -77,33 +80,30 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
     }
   }
 
-  onDeleteEmployee(index: number) {
-    const employeeIndex = this.employees[index].id;
-    this.employeeService.deleteEmployee(employeeIndex).subscribe(() => {
-      this.isEmployeeDeleted = true;
-      setTimeout(() => {
-        this.isEmployeeDeleted = false;
-      }, 2000)
-      this.employees = this.employees.slice();
-    });
-  }
-
-  // Toggle employee form
-
-  onAddEmployee() {
-    this.isNewEmployeeFormClosed = false;
-  }
-
-  closeEmployeeForm() {
-    this.closeEmployeeFormSubs = this.employeeService.closeNewEmployeeForm$.subscribe(
-      (close) => {
-        this.isNewEmployeeFormClosed = close;
+  addEmployeeAfterSubmit() {
+    this.addEmpAfterSubmitSubs = this.employeeService.addEmployeeToTable$.subscribe(
+      (newEmp) => {
+        this.employees.push(newEmp);
       }
     );
   }
 
+  onDeleteEmployee(index: number) {
+    this.onDeleteEmployeeSubs = this.employeeService
+      .deleteEmployee(this.employees[index].id)
+      .subscribe(() => {
+        this.isEmployeeDeleted = true;
+      });
+    this.removeEmployeeAfterSubmit(index);
+  }
+
+  removeEmployeeAfterSubmit(index) {
+    this.employees.splice(index, 1);
+  }
+
   ngOnDestroy() {
     this.renderRoleAssignmentSubs.unsubscribe();
-    this.closeEmployeeFormSubs.unsubscribe();
+    this.addEmpAfterSubmitSubs.unsubscribe();
+    this.onDeleteEmployeeSubs.unsubscribe();
   }
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { EmployeeService } from "src/app/services/employee.service";
-import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
-import { IEmployee } from "../../entities/employee";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { IEmployee } from "src/app/common/entities/employee";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-new-employee-form",
@@ -12,33 +13,36 @@ export class NewEmployeeFormComponent implements OnInit {
   newEmployeeForm: FormGroup;
   formSubmitted = false;
 
-  constructor(private employeeService: EmployeeService) {}
+  constructor(
+    private employeeService: EmployeeService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.newEmployeeForm = new FormGroup({
       userName: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.required, Validators.email]),
-      role: new FormControl('Admin'),
+      role: new FormControl("Admin"),
     });
   }
 
-  onSubmit(){
+  onSubmit() {
     const newEmployee: IEmployee = this.newEmployeeForm.value;
     this.employeeService.addEmployee(newEmployee).subscribe(() => {
       this.formSubmitted = true;
+      this.employeeService.addEmployeeToTable$.next(newEmployee);
     });
     this.newEmployeeForm.reset();
     setTimeout(() => {
       this.onCloseEmployeeForm();
-    }, 1500)
+    }, 1500);
   }
 
   onCloseEmployeeForm() {
-    this.employeeService.closeNewEmployeeForm();
+    this.router.navigate(["employees"]);
   }
 
   // getControls() {
   //   return (<FormArray>this.newEmployeeForm.get("employees")).controls;
   // }
 }
-

@@ -2,16 +2,17 @@ import { Component, Output, OnInit } from "@angular/core";
 import { Subject, Observable } from "rxjs";
 import { ProjectService } from "src/app/services/project.service";
 import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
-import { IEmployee } from "../../entities/employee";
 import { EmployeeService } from "src/app/services/employee.service";
-import { IProject } from "../../entities/project";
+import { IProject } from 'src/app/common/entities/project';
+import { IEmployee } from 'src/app/common/entities/employee';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-project-alert",
   templateUrl: "./new-project-form-alert.component.html",
   styleUrls: ["./new-project-form-alert.component.css"],
 })
-export class AlertComponent implements OnInit {
+export class NewProjectFormComponent implements OnInit {
   closeNewProjectAlert: Subject<boolean> = new Subject<boolean>();
   employees: IEmployee[];
   newProjectFromServer: IProject;
@@ -32,7 +33,8 @@ export class AlertComponent implements OnInit {
 
   constructor(
     private projectService: ProjectService,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -49,8 +51,8 @@ export class AlertComponent implements OnInit {
   }
 
   onFormAlertClose() {
-    this.projectService.closeNewProjectForm();
     this.newProjectForm.reset();
+    this.router.navigate(["projects"]);
   }
 
   onSubmit() {
@@ -77,6 +79,7 @@ export class AlertComponent implements OnInit {
       //   role: "User",
       // };
       this.employeeService.addEmployeesToProject(this.newEmployees, projectId);
+      this.projectService.addProjectToTable$.next(newProject);
     });
     this.onFormAlertClose();
   }
