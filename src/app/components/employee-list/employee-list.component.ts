@@ -33,7 +33,6 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const routePath = this.route.snapshot.routeConfig.path;
-    console.log(routePath);
     if (routePath === "employees") {
       this.listEmployees();
       this.addEmployeeAfterSubmit();

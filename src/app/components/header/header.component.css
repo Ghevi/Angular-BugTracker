@@ -1,5 +1,9 @@
+* {
+  font-family: 'Open Sans';
+}
+
 .topnav {
-  background-color: 23232e;
+  background-color: #23232e;
   overflow: hidden;
 }
 
@@ -13,11 +17,11 @@
 }
 
 .topnav :last-child {
-  margin-left: 80rem;
+  margin-left: 74vw;
 }
 
 .topnav a:hover {
-  background-color: #3fa3f5;
+  background-color: #141418;
   color: white;
   transition-duration: 0.6s;
 }

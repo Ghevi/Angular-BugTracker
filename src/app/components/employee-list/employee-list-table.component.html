@@ -9,6 +9,7 @@
           Select 1 or multiple users
           <div>
             <select
+              [disabled]="employees?.length == 0"
               required
               name="userName"
               ngModel
@@ -18,7 +19,7 @@
               <option value="none" *ngIf="employees?.length > 0" hidden
                 >--No Employee selected--</option
               >
-              <option value="none" *ngIf="employees?.length == 0" hidden
+              <option [disabled]=true class="magic" value="none" *ngIf="employees?.length == 0" hidden
                 >--There are no employees--</option
               >
               <option
@@ -31,7 +32,7 @@
         </h5>
         <h5 id="role">Select the role to assign</h5>
         <div>
-          <select required name="role" ngModel id="roles-list">
+          <select [disabled]="employees?.length == 0" required name="role" ngModel id="roles-list">
             <option value="" hidden>--No role selected--</option>
             <option> Admin </option>
             <option> Manager </option>

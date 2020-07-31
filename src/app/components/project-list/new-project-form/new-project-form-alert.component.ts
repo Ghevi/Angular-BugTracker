@@ -16,7 +16,6 @@ export class NewProjectFormComponent implements OnInit {
   closeNewProjectAlert: Subject<boolean> = new Subject<boolean>();
   employees: IEmployee[];
   newProjectFromServer: IProject;
-  newEmployees: IEmployee[] = [];
   newProjectForm: FormGroup;
   addEmployeeBtnClicked = false;
   forbiddenUsernames = [
@@ -53,29 +52,32 @@ export class NewProjectFormComponent implements OnInit {
 
   onSubmit() {
     const newProject = this.newProjectForm.value;
-    console.log(newProject);
     newProject.stage = "In progress";
+
+    const newEmployees: IEmployee[] = [];
 
     for (let assignedEmp of newProject.assignedEmployees) {
       let newEmp = {
         userName: assignedEmp,
         email: `${newProject.assignedEmployees}@tempEmail.com`,
+        password: "temp-password",
         role: "User",
       };
-      this.newEmployees.push(newEmp);
+      newEmployees.push(newEmp);
     }
 
     this.projectService.addProject(newProject).subscribe((data) => {
       this.newProjectFromServer = data;
       const href = this.newProjectFromServer._links.self.href;
       const projectId = +href.replace(this.projectUrl, "");
-      console.log(projectId);
       // let newEmp2 = {
       //   userName: "prova",
       //   email: "prova@gmail.com",
       //   role: "User",
       // };
-      this.projectService.addEmployeesToProject(projectId, this.newEmployees).subscribe(data => {
+      console.log(newEmployees)
+      console.log(projectId)
+      this.projectService.addEmployeesToProject(projectId, newEmployees).subscribe(data => {
         console.log(data);
       });
       this.projectService.addProjectToTable$.next(newProject);
@@ -100,7 +102,6 @@ export class NewProjectFormComponent implements OnInit {
   }
 
   forbidUsernames(control: FormControl): { [s: string]: boolean } {
-    console.log("works");
     for (let employee of control.value) {
       if (this.forbiddenUsernames.indexOf(employee) !== -1) {
         return { nameIsForbidden: true };
@@ -110,7 +111,6 @@ export class NewProjectFormComponent implements OnInit {
   }
 
   takenUsernames(control: FormControl): Promise<any> | Observable<any> {
-    console.log("works");
     const promise = new Promise<any>((resolve, reject) => {
       const observable = this.employeeService
         .getEmployeeList()

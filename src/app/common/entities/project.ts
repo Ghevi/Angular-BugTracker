@@ -8,12 +8,4 @@ export interface IProject {
   _links?: _Links;
 }
 
-class Project implements IProject{
-  id: number
-  projectName: string;
-  description: string;
-  stage: string;
-  _links?: _Links;
-}
-
 

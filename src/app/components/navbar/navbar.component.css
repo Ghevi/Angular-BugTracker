@@ -1,4 +1,4 @@
-:root {
+:host {
   font-size: 16px;
   font-family: 'Open Sans';
   --text-primary: #b6b6b6;
@@ -120,7 +120,6 @@ main {
 }
 
 .logo svg {
-  margin-top: 2rem;
   transform: rotate(0deg);
   transition: var(--transition-speed);
 }
@@ -136,6 +135,7 @@ main {
 .navbar:hover .logo svg {
   transform: rotate(-180deg);
   transition-duration: 0.5s;
+  left: 20px;
 }
 
 /* Small screens */

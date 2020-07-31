@@ -1,5 +1,5 @@
 * {
-  font-family: "Roboto Mono", serif;
+  font-family: 'Open Sans';
 }
 
 .backdrop {
@@ -17,6 +17,7 @@
   top: 20vh;
   left: 40vw;
   width: 20vw;
+  height: 41vh;
   padding: 16px;
   z-index: 100;
   background: white;

@@ -28,6 +28,7 @@ export class NewEmployeeFormComponent implements OnInit {
 
   onSubmit() {
     const newEmployee: IEmployee = this.newEmployeeForm.value;
+    newEmployee.password = "temp-password";
     this.employeeService.addEmployee(newEmployee).subscribe(() => {
       this.formSubmitted = true;
       this.employeeService.addEmployeeToTable$.next(newEmployee);

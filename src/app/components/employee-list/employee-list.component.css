@@ -1,5 +1,5 @@
 * {
-  font-family: "Roboto Mono", serif;
+  font-family: 'Open Sans';
 }
 
 :host {
@@ -66,6 +66,7 @@
 
 .submit {
   width: 18.6rem;
+  margin-top: 20px;
   background-color: rgb(150, 153, 155);
   color: white;
   padding: 10px;
