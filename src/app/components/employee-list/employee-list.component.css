@@ -111,9 +111,3 @@
   background-color: #eb0505;
   transition-duration: 0.5s;
 }
-
-.deleted {
-  position: relative;
-  top: 20px;
-  left: 20px;
-}

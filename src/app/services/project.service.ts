@@ -3,10 +3,19 @@ import { HttpClient } from "@angular/common/http";
 import { Observable, Subject } from "rxjs";
 import { map } from "rxjs/operators";
 import { IProject } from "../common/entities/project";
+import { identifierModuleUrl } from "@angular/compiler";
+import { IEmployee } from "../common/entities/employee";
+import { _Links } from "../common/entities/_links";
 
-interface GetResponse {
+interface GetProjectsResponse {
   _embedded: {
     projects: IProject[];
+  };
+}
+
+interface GetProjectEmployeesResponse {
+  _embedded: {
+    employees: IEmployee[];
   };
 }
 
@@ -18,14 +27,13 @@ export class ProjectService {
   renderRoleAssignment$: Subject<boolean> = new Subject<boolean>();
   addProjectToTable$: Subject<IProject> = new Subject<IProject>();
 
-  constructor(private httpClient: HttpClient) {
-  }
+  constructor(private httpClient: HttpClient) {}
 
   // Backend requests
 
   getProjectList(): Observable<IProject[]> {
     return this.httpClient
-      .get<GetResponse>(this.baseUrl)
+      .get<GetProjectsResponse>(this.baseUrl)
       .pipe(map((response) => response._embedded.projects));
   }
 
@@ -37,6 +45,13 @@ export class ProjectService {
     return this.httpClient.post<IProject>(this.baseUrl, project);
   }
 
-  // Components communication
+  addEmployeesToProject(projectId: number, employees: IEmployee[]): Observable<IEmployee[]> {
+    return this.httpClient.post<IEmployee[]>(`${this.baseUrl}/${projectId}/employees`,
+      employees
+    );
+  }
 
+  deleteProject(id: number): Observable<IProject> {
+    return this.httpClient.delete<IProject>(this.baseUrl + "/" + id);
+  }
 }

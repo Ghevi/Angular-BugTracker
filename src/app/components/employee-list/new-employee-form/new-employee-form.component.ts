@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { EmployeeService } from "src/app/services/employee.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { IEmployee } from "src/app/common/entities/employee";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-new-employee-form",
@@ -31,7 +31,11 @@ export class NewEmployeeFormComponent implements OnInit {
     this.employeeService.addEmployee(newEmployee).subscribe(() => {
       this.formSubmitted = true;
       this.employeeService.addEmployeeToTable$.next(newEmployee);
+      this.beforeSubmit();
     });
+  }
+
+  beforeSubmit() {
     this.newEmployeeForm.reset();
     setTimeout(() => {
       this.onCloseEmployeeForm();
@@ -39,7 +43,12 @@ export class NewEmployeeFormComponent implements OnInit {
   }
 
   onCloseEmployeeForm() {
-    this.router.navigate(["employees"]);
+    const activeRoute = this.router.url;
+    if (activeRoute.includes("projects")) {
+      this.router.navigate(["projects/new-project"]);
+    } else if (activeRoute.includes("employees")) {
+      this.router.navigate(["employees"]);
+    }
   }
 
   // getControls() {

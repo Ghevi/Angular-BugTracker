@@ -59,23 +59,17 @@
       >
     </div>
     <div>
-      <button
-        type="button"
-        class="add-emp-btn"
-        *ngIf="!addEmployeeBtnClicked"
-        (click)="onEmpBtnClicked()"
-      >
+      <button type="button" class="add-emp-btn" (click)="onAddEmployees()">
         Add Employees
       </button>
-      <ng-container *ngIf="addEmployeeBtnClicked" formArrayName="employees">
+      <!-- <ng-container *ngIf="addEmployeeBtnClicked" formArrayName="employees">
         <div *ngFor="let employeesControl of getControls(); let i = index">
-          <label for="userName">Insert one or multiple employee</label>
+          <label for="userName">Insert an employee</label>
           <input type="text" [formControlName]="i" />
           <div class="width-divider"></div>
           <button
             type="button"
             class="goto-add-emp-btn"
-            (click)="onEmpBtnClicked()"
           >
             Cancel
           </button>
@@ -90,18 +84,22 @@
               <span
                 *ngIf="newProjectForm.get('employees').errors?.nameIsForbidden"
                 >This name is invalid!
-                </span
-                >
-                <span *ngIf="newProjectForm.get('employees').errors?.required"
-                  >Add at least on employee</span
-                >
+              </span>
+              <span *ngIf="newProjectForm.get('employees').errors?.required"
+                >Add at least on employee</span
+              >
               <span
                 *ngIf="newProjectForm.get('employees').errors?.usernameIsTaken"
-              >The username is taken</span>
+                >The username is taken</span
+              >
             </span>
           </div>
         </div>
-      </ng-container>
+      </ng-container> -->
+    </div>
+    <div class="height-divider"></div>
+    <div style="position: relative; left: 9.6vw;" *ngIf="formSubmitted">
+      Created!
     </div>
     <div class="height-divider"></div>
     <div class="alert-box-actions">

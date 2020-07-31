@@ -41,23 +41,7 @@ export class EmployeeService {
     return this.httpClient.post<IEmployee>(this.employeesBaseUrl, employee);
   }
 
-  addEmployeesToProject(
-    employee: IEmployee[],
-    projId: number
-  ): Observable<GetResponse> {
-    return this.httpClient.post<GetResponse>(
-      `${this.projectUrl}/${projId}/employees`,
-      employee
-    );
-  }
-
   deleteEmployee(id: number): Observable<IEmployee> {
     return this.httpClient.delete<IEmployee>(this.employeesBaseUrl + "/" + id);
-  }
-
-  // Components communication
-
-  closeNewEmployeeForm() {
-    this.closeNewEmployeeForm$.next(true);
   }
 }

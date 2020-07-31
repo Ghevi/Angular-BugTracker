@@ -5,7 +5,7 @@ import { ProjectListComponent } from "./components/project-list/project-list.com
 import { ProjectDetailsComponent } from "./components/project-list/project-details/project-details.component";
 import { UserSettingsComponent } from "./components/user-settings/user-settings.component";
 import { NewEmployeeFormComponent } from "./components/employee-list/new-employee-form/new-employee-form.component";
-import { NewProjectFormComponent } from './components/project-list/new-project-form/new-project-form-alert.component';
+import { NewProjectFormComponent } from "./components/project-list/new-project-form/new-project-form-alert.component";
 
 const routes: Routes = [
   { path: "user-settings", component: UserSettingsComponent },
@@ -13,17 +13,17 @@ const routes: Routes = [
     path: "employees",
     component: EmployeeListComponent,
     children: [
-      { path: "", redirectTo: 'employees', pathMatch: 'full' },
       { path: "new-employee", component: NewEmployeeFormComponent },
     ],
   },
-  { path: "projects", component: ProjectListComponent, children: [
-    { path: "", redirectTo: 'projects', pathMatch: 'full' },
-    { path: "new-project", component: NewProjectFormComponent}
-  ] },
   {
-    path: "projects/:id",
-    component: ProjectDetailsComponent,
+    path: "projects",
+    component: ProjectListComponent,
+    children: [
+      { path: "new-project", component: NewProjectFormComponent },
+      { path: "new-employee", component: NewEmployeeFormComponent },
+      { path: ":id", component: ProjectDetailsComponent },
+    ],
   },
 ];
 

@@ -19,7 +19,6 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
   addEmpAfterSubmitSubs: Subscription = new Subscription();
   onDeleteEmployeeSubs: Subscription = new Subscription();
   private baseUrl = "http://localhost:8080/api/employees/";
-  isEmployeeDeleted = false;
 
   @Output() cat = 10;
 
@@ -91,13 +90,7 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
   onDeleteEmployee(index: number) {
     this.onDeleteEmployeeSubs = this.employeeService
       .deleteEmployee(this.employees[index].id)
-      .subscribe(() => {
-        this.isEmployeeDeleted = true;
-      });
-    this.removeEmployeeAfterSubmit(index);
-  }
-
-  removeEmployeeAfterSubmit(index) {
+      .subscribe();
     this.employees.splice(index, 1);
   }
 

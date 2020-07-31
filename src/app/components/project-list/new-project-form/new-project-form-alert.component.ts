@@ -30,6 +30,7 @@ export class NewProjectFormComponent implements OnInit {
     "guest",
   ];
   private projectUrl = "http://localhost:8080/api/projects/";
+  formSubmitted = false;
 
   constructor(
     private projectService: ProjectService,
@@ -50,11 +51,6 @@ export class NewProjectFormComponent implements OnInit {
     });
   }
 
-  onFormAlertClose() {
-    this.newProjectForm.reset();
-    this.router.navigate(["projects"]);
-  }
-
   onSubmit() {
     const newProject = this.newProjectForm.value;
     console.log(newProject);
@@ -73,35 +69,34 @@ export class NewProjectFormComponent implements OnInit {
       this.newProjectFromServer = data;
       const href = this.newProjectFromServer._links.self.href;
       const projectId = +href.replace(this.projectUrl, "");
+      console.log(projectId);
       // let newEmp2 = {
       //   userName: "prova",
       //   email: "prova@gmail.com",
       //   role: "User",
       // };
-      this.employeeService.addEmployeesToProject(this.newEmployees, projectId);
+      this.projectService.addEmployeesToProject(projectId, this.newEmployees).subscribe(data => {
+        console.log(data);
+      });
       this.projectService.addProjectToTable$.next(newProject);
+      this.beforeSubmit();
     });
-    this.onFormAlertClose();
   }
 
-  // assignedEmployees: ["lol"]
-  // description: "sdg"
-  // employees: []
-  // projectName: "fgds"
+  beforeSubmit() {
+    this.formSubmitted = true;
+    setTimeout(() => {
+      this.onFormAlertClose();
+    }, 1500);
+  }
 
-  onEmpBtnClicked() {
-    if (!this.addEmployeeBtnClicked) {
-      this.addEmployeeBtnClicked = true;
-      const control = new FormArray(
-        null,
-        [Validators.required, this.forbidUsernames.bind(this)],
-        this.takenUsernames.bind(this)
-      );
-      (<FormArray>this.newProjectForm.get("employees")).push(control);
-    } else {
-      this.addEmployeeBtnClicked = false;
-      (<FormArray>this.newProjectForm.get("employees")).removeAt(0);
-    }
+  onFormAlertClose() {
+    this.newProjectForm.reset();
+    this.router.navigate(["projects"]);
+  }
+
+  onAddEmployees() {
+    this.router.navigate(["projects/new-employee"]);
   }
 
   forbidUsernames(control: FormControl): { [s: string]: boolean } {
@@ -137,29 +132,21 @@ export class NewProjectFormComponent implements OnInit {
   getControls() {
     return (<FormArray>this.newProjectForm.get("employees")).controls;
   }
-
-  // Tentative of multi selector in select employees
-  //   employeeMouseDown( event: any ) {
-  //     event.stopPropagation();
-  //     let scrollTop = 0;
-  //     if ( event.target.parentNode ) {
-  //         scrollTop = event.target.parentNode.scrollTop;
-  //     }
-  //     const stringValue = event.target.value.split( '\'' )[1];
-  //     const index = this.employees.indexOf( stringValue, 0 );
-  //     if ( index > -1 ) {
-  //         this.employees.splice( index, 1 );
-  //     } else {
-  //         this.employees.push( stringValue );
-  //     }
-  //     // to make angular aware there is something new
-  //     const tmp = this.employees;
-  //     this.employees = [];
-  //     for ( let i = 0; i < tmp.length; i++ ) {
-  //         this.employees[i] = tmp[i];
-  //     }
-  //     setTimeout(( function() { event.target.parentNode.scrollTop = scrollTop; } ), 0 );
-  //     setTimeout(( function() { event.target.parentNode.focus(); } ), 0 );
-  //     return false;
-  // }
 }
+
+
+// onAddEmployees() {
+
+  // if (!this.addEmployeeBtnClicked) {
+  //   this.addEmployeeBtnClicked = true;
+  //   const control = new FormArray(
+  //     null,
+  //     [Validators.required, this.forbidUsernames.bind(this)],
+  //     this.takenUsernames.bind(this)
+  //   );
+  //   (<FormArray>this.newProjectForm.get("employees")).push(control);
+  // } else {
+  //   this.addEmployeeBtnClicked = false;
+  //   (<FormArray>this.newProjectForm.get("employees")).removeAt(0);
+  // }
+// }
