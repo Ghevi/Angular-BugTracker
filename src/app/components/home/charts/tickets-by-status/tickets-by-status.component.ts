@@ -10,6 +10,7 @@ export class TicketsByStatusComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
 }

@@ -1,17 +1,18 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-} from "@angular/core";
-import { Subject, Observable, fromEvent } from "rxjs";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Subject, fromEvent, Observable } from "rxjs";
 import { ProjectService } from "src/app/services/project.service";
 import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
 import { EmployeeService } from "src/app/services/employee.service";
 import { IProject } from "src/app/common/entities/project";
 import { IEmployee } from "src/app/common/entities/employee";
 import { Router } from "@angular/router";
-import { debounceTime, distinctUntilChanged, switchMap, tap, concatMap } from "rxjs/operators";
+import {
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+  tap,
+  concatMap,
+} from "rxjs/operators";
 
 @Component({
   selector: "app-project-alert",
@@ -62,36 +63,43 @@ export class NewProjectFormComponent implements OnInit {
     });
   }
 
-
   onSubmit() {
     const newProject = this.newProjectForm.value;
     newProject.stage = "In progress";
 
-    this.myFunc(newProject);
-
-    // this.projectService.addProject(newProject).pipe(
-    //   concatMap((newProjectFromServer: IProject) => {
-    //     this.projectService.addEmployeesToProject(
-    //       newProjectFromServer.id,
-    //       newProject.assignedEmployees
-    //     );
-    //   })
-    // );
+    this.projectService
+      .addProject(newProject)
+      .pipe(
+        switchMap((newProjectFromServer) =>
+          this.projectService.addEmployeesToProject(
+            newProjectFromServer.id,
+            newProject.assignedEmployees
+          )
+        )
+      )
+      .subscribe((secondResult) => {
+        this.afterSubmit();
+      });
 
     this.projectService.addProjectToTable(newProject);
   }
 
-  public async myFunc(newProject: any): Promise<void> {
-    const newProjectFromServer = await this.projectService.addProject(newProject).toPromise()
+  // Consider using this in onSubmit() if concatMap gives trouble
 
-    await this.projectService
-      .addEmployeesToProject(
-        newProjectFromServer.id,
-        newProject.assignedEmployees
-       ).toPromise();
+  // public async myFunc(newProject: any): Promise<void> {
+  //   const newProjectFromServer = await this.projectService
+  //     .addProject(newProject)
+  //     .toPromise();
 
-    this.afterSubmit();
-    }
+  //   await this.projectService
+  //     .addEmployeesToProject(
+  //       newProjectFromServer.id,
+  //       newProject.assignedEmployees
+  //     )
+  //     .toPromise();
+
+  //   this.afterSubmit();
+  // }
 
   afterSubmit() {
     this.formSubmitted = true;
