@@ -18,7 +18,7 @@ export class EmployeeService {
   addEmployeeToTable$: Subject<IEmployee> = new Subject<IEmployee>();
 
   private employeesBaseUrl = "http://localhost:8080/api/employees";
-  private projectUrl = "http://localhost:8080/api/projects";
+  private projectsBaseUrl = "http://localhost:8080/api/projects";
 
   constructor(private httpClient: HttpClient) {}
 
@@ -35,6 +35,10 @@ export class EmployeeService {
       this.employeesBaseUrl + "/" + id,
       employee
     );
+  }
+
+  updateEmployee(id: number, updatedEmployee: IEmployee): Observable<IEmployee> {
+    return this.httpClient.patch<IEmployee>(this.employeesBaseUrl + "/" + id, updatedEmployee);
   }
 
   addEmployee(employee: IEmployee): Observable<IEmployee> {

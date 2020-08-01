@@ -49,9 +49,12 @@ export class ProjectService {
     projectId: number,
     employees: IEmployee[]
   ): Observable<IEmployee[]> {
-    return this.httpClient.post<IEmployee[]>(`${this.baseUrl}/${projectId}/employees`, {
-      _embedded: { employees },
-    });
+    return this.httpClient.post<IEmployee[]>(
+      `${this.baseUrl}/${projectId}/employees`,
+      {
+        _embedded: { employees },
+      }
+    );
   }
 
   deleteProject(id: number): Observable<IProject> {

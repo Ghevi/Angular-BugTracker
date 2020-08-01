@@ -37,9 +37,9 @@ export class NewEmployeeFormComponent implements OnInit {
   }
 
   beforeSubmit() {
-    this.newEmployeeForm.reset();
     setTimeout(() => {
       this.onCloseEmployeeForm();
+      this.newEmployeeForm.reset();
     }, 1500);
   }
 

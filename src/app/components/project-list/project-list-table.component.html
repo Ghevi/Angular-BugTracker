@@ -1,8 +1,6 @@
 <header *ngIf="route.children.length === 0 || router.url.includes('new')">
-  <button type="button" routerLink="new-project">Create new Project</button>
+  <button type="button" routerLink="/new-project">Create new Project</button>
 </header>
-
-
 
 <main>
   <router-outlet></router-outlet>
@@ -40,7 +38,7 @@
           <td class="align-middle">
             <a routerLink="/employees">Assigned Employee</a>
             <br />
-            <a [routerLink]="['/projects', project.id]">Project Details</a>
+            <a [routerLink]="project.id">Project Details</a>
           </td>
         </tr>
       </tbody>

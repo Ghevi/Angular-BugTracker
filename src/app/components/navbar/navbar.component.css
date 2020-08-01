@@ -78,6 +78,12 @@ main {
   transition-duration: 0.5s;
 }
 
+.nav-link-active {
+  filter: grayscale(0%) opacity(1);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
 .link-text-title {
   display: none;
   margin-left: 1rem;
