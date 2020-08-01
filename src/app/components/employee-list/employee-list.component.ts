@@ -13,12 +13,15 @@ import { ActivatedRoute, Router } from "@angular/router";
   styleUrls: ["./employee-list.component.css"],
 })
 export class EmployeeListComponent implements OnInit, OnDestroy {
+  private baseUrl = "http://localhost:8080/api/employees/";
+
   employees: IEmployee[];
   renderRoleAssignment: boolean = true;
-  renderRoleAssignmentSubs: Subscription = new Subscription();
-  addEmpAfterSubmitSubs: Subscription = new Subscription();
+
+  roleAssignmentRenderingChangedSubs: Subscription = new Subscription();
+  tableChangedSubs: Subscription = new Subscription();
   onDeleteEmployeeSubs: Subscription = new Subscription();
-  private baseUrl = "http://localhost:8080/api/employees/";
+
 
   @Output() cat = 10;
 
@@ -58,9 +61,9 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
   }
 
   displayRoleAssignment() {
-    this.renderRoleAssignmentSubs = this.projectService.renderRoleAssignment$.subscribe(
-      (render) => {
-        this.renderRoleAssignment = render;
+    this.roleAssignmentRenderingChangedSubs = this.projectService.roleAssignmentRenderingChanged$.subscribe(
+      (value) => {
+        this.renderRoleAssignment = value;
       }
     );
   }
@@ -79,7 +82,7 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
   }
 
   addEmployeeAfterSubmit() {
-    this.addEmpAfterSubmitSubs = this.employeeService.addEmployeeToTable$.subscribe(
+    this.tableChangedSubs = this.employeeService.employeesTableChanged$.subscribe(
       (newEmp) => {
         this.employees.push(newEmp);
       }
@@ -94,8 +97,8 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.renderRoleAssignmentSubs.unsubscribe();
-    this.addEmpAfterSubmitSubs.unsubscribe();
+    this.roleAssignmentRenderingChangedSubs.unsubscribe();
+    this.tableChangedSubs.unsubscribe();
     this.onDeleteEmployeeSubs.unsubscribe();
   }
 }

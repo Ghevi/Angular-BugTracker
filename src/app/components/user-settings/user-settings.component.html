@@ -6,7 +6,7 @@
     <p>General settings</p>
     <div>
       <label for="userName">Username</label>
-      <input type="text" formControlName="userName" #username/>
+      <input type="text" formControlName="userName" #userName/>
       <span
         *ngIf="
           newSettingsForm.get('userName').errors?.required &&
@@ -26,7 +26,7 @@
           newSettingsForm.get('email').errors?.required &&
           newSettingsForm.get('email').touched
         "
-        >Insert a valid email</span
+        >Insert an email</span
       >
       <span *ngIf="newSettingsForm.get('email').errors?.emailIsTaken"
         >The email is taken</span

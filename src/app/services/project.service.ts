@@ -24,10 +24,24 @@ interface GetProjectEmployeesResponse {
 })
 export class ProjectService {
   private baseUrl = "http://localhost:8080/api/projects";
-  renderRoleAssignment$: Subject<boolean> = new Subject<boolean>();
-  addProjectToTable$: Subject<IProject> = new Subject<IProject>();
+  private renderRoleAssignment$: Subject<boolean> = new Subject<boolean>();
+  private addProjectToTable$: Subject<IProject> = new Subject<IProject>();
 
   constructor(private httpClient: HttpClient) {}
+
+  // Component communication
+
+  roleAssignmentRenderingChanged$ = this.renderRoleAssignment$.asObservable();
+
+  renderRoleAssignment(value: boolean) {
+    this.renderRoleAssignment$.next(value);
+  }
+
+  projectsTableChanged$ = this.addProjectToTable$.asObservable();
+
+  addProjectToTable(project: IProject) {
+    this.addProjectToTable$.next(project);
+  }
 
   // Backend requests
 

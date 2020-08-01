@@ -20,7 +20,7 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.listProject();
-    this.projectService.renderRoleAssignment$.next(false);
+    this.projectService.renderRoleAssignment(false);
   }
 
   listProject() {

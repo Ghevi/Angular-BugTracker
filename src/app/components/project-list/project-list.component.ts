@@ -15,7 +15,7 @@ export class ProjectListComponent implements OnInit {
 
   projects: IProject[];
   getProjectsSub: Subscription = new Subscription();
-  addProjectAfterSubmitSubs: Subscription = new Subscription();
+  projectsTableChangedSubs: Subscription = new Subscription();
 
   constructor(
     private projectService: ProjectService,
@@ -33,21 +33,11 @@ export class ProjectListComponent implements OnInit {
       .getProjectList()
       .subscribe((projects) => {
         this.projects = projects;
-        this.addIdToProjects();
       });
   }
 
-  addIdToProjects() {
-    // Temporarily adds ids from HATEOS links
-    for (let project of this.projects) {
-      let href = project._links.self.href;
-      let projectId = +href.replace(this.baseUrl, "");
-      project.id = projectId;
-    }
-  }
-
   addProjectAfterSubmit() {
-    this.addProjectAfterSubmitSubs = this.projectService.addProjectToTable$.subscribe(
+    this.projectsTableChangedSubs = this.projectService.projectsTableChanged$.subscribe(
       (newProj) => {
         this.projects.push(newProj);
       }
@@ -61,6 +51,17 @@ export class ProjectListComponent implements OnInit {
 
   ngOnDestroy() {
     this.getProjectsSub.unsubscribe();
-    this.addProjectAfterSubmitSubs.unsubscribe();
+    this.projectsTableChangedSubs.unsubscribe();
   }
 }
+
+
+// Temporarily adds ids from HATEOS links, before exposing ids in Spring Data Rest
+// addIdToProjects(projects: IProject[]) {
+  //   for (let project of projects) {
+  //     let href = project._links.self.href;
+  //     let projectId = +href.replace(this.baseUrl, "");
+  //     project.id = projectId;
+  //   }
+  //   return projects;
+  // }

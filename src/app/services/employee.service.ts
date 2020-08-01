@@ -14,27 +14,34 @@ interface GetResponse {
   providedIn: "root",
 })
 export class EmployeeService {
-  closeNewEmployeeForm$: Subject<boolean> = new Subject<boolean>();
-  addEmployeeToTable$: Subject<IEmployee> = new Subject<IEmployee>();
+  private addEmployeeToTable$: Subject<IEmployee> = new Subject<IEmployee>();
 
   private employeesBaseUrl = "http://localhost:8080/api/employees";
   private projectsBaseUrl = "http://localhost:8080/api/projects";
 
   constructor(private httpClient: HttpClient) {}
 
-  // Backend requests
+  // Components communication
 
-  getEmployeeList(): Observable<IEmployee[]> {
-    return this.httpClient
-      .get<GetResponse>(this.employeesBaseUrl)
-      .pipe(map((response) => response._embedded.employees));
+  employeesTableChanged$ = this.addEmployeeToTable$.asObservable();
+
+  addEmployeeToTable(employee: IEmployee) {
+    this.addEmployeeToTable$.next(employee);
   }
+
+  // Backend requests
 
   setEmployeeRole(employee: IEmployee, id: number): Observable<IEmployee> {
     return this.httpClient.put<IEmployee>(
       this.employeesBaseUrl + "/" + id,
       employee
     );
+  }
+
+  getEmployeeList(): Observable<IEmployee[]> {
+    return this.httpClient
+      .get<GetResponse>(this.employeesBaseUrl)
+      .pipe(map((response) => response._embedded.employees));
   }
 
   updateEmployee(id: number, updatedEmployee: IEmployee): Observable<IEmployee> {

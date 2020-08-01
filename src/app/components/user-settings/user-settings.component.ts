@@ -21,7 +21,7 @@ export class UserSettingsComponent implements OnInit {
   loggedUser: IEmployee;
   show = false;
 
-  @ViewChild("username") username: ElementRef;
+  @ViewChild("userName") userName: ElementRef;
   @ViewChild("email") email: ElementRef;
 
   constructor(private employeeService: EmployeeService) {}
@@ -73,7 +73,7 @@ export class UserSettingsComponent implements OnInit {
 
   takenUsername(control: FormControl): Promise<any> | Observable<any> {
     const promise = new Promise<any>((resolve, reject) => {
-      let text$ = fromEvent(this.username.nativeElement, "keyup")
+      let text$ = fromEvent(this.userName.nativeElement, "keyup")
         .pipe(
           debounceTime(200),
           distinctUntilChanged(),
