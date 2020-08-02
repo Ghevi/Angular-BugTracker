@@ -79,6 +79,8 @@ export class NewEmployeeFormComponent implements OnInit {
           }
           const properties = employees.map((employee) => employee.userName);
           for (let tempProperty of properties) {
+            console.log("temp property is " + tempProperty)
+            console.log("control value is " + control.value)
             if (tempProperty === control.value) {
               resolve({ usernameIsTaken: true });
             } else {

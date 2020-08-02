@@ -10,8 +10,6 @@ import {
   debounceTime,
   distinctUntilChanged,
   switchMap,
-  tap,
-  concatMap,
 } from "rxjs/operators";
 
 @Component({
@@ -22,7 +20,6 @@ import {
 export class NewProjectFormComponent implements OnInit {
   closeNewProjectAlert: Subject<boolean> = new Subject<boolean>();
   employees: IEmployee[];
-  projects: IProject[];
   newProjectForm: FormGroup;
   addEmployeeBtnClicked = false;
   forbiddenUsernames = [
@@ -128,8 +125,7 @@ export class NewProjectFormComponent implements OnInit {
           if (projects.length === 0) {
             resolve(null);
           }
-          this.projects = projects;
-          const properties = this.projects.map(
+          const properties = projects.map(
             (project) => project.projectName
           );
           for (let tempProperty of properties) {

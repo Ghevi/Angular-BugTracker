@@ -1,58 +1,82 @@
-<form [formGroup]="newSettingsForm" (ngSubmit)="onSubmit()">
-  <header>
-    <h1>User Settings</h1>
-  </header>
-  <body>
-    <p>General settings</p>
-    <div>
-      <label for="userName">Username</label>
-      <input type="text" formControlName="userName" #userName/>
-      <span
-        *ngIf="
-          newSettingsForm.get('userName').errors?.required &&
-          newSettingsForm.get('userName').touched
-        "
-        >Insert a username</span
-      >
-      <span *ngIf="newSettingsForm.get('userName').errors?.usernameIsTaken"
-        >The username is taken</span
-      >
-    </div>
-    <div>
-      <label for="email">Email</label>
-      <input type="email" formControlName="email" #email/>
-      <span
-        *ngIf="
-          newSettingsForm.get('email').errors?.required &&
-          newSettingsForm.get('email').touched
-        "
-        >Insert an email</span
-      >
-      <span *ngIf="newSettingsForm.get('email').errors?.emailIsTaken"
-        >The email is taken</span
-      >
-    </div>
-    <div>
-      <label for="password">Password</label>
-      <input [type]="show ? 'text' : 'password'" formControlName="password" />
-      <span
-        *ngIf="
-          newSettingsForm.get('password').errors?.passwordIsInvalid &&
-          newSettingsForm.get('password').touched
-        "
-      >
-        Password must be at least 6 characters long and contains at least a
-        number
-      </span>
-      <div>
-        <input type="checkbox" (click)="onShowPassword()">Show Password
-      </div>
-    </div>
-    <div>
-      <button type="submit" class="submit" [disabled]="!newSettingsForm.valid">
-        Save
-      </button>
-      <button type="button" class="reset" (click)="onResetForm()">Reset</button>
-    </div>
-  </body>
-</form>
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="newSettingsForm" (ngSubmit)="onSubmit()">
+      <header>
+        <h1>User Settings</h1>
+      </header>
+      <body>
+        <p>General settings</p>
+        <div class="form-group">
+          <label for="userName">Username</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="userName"
+            #userName
+          />
+          <span
+            *ngIf="
+              newSettingsForm.get('userName').errors?.required &&
+              newSettingsForm.get('userName').touched
+            "
+            >Enter a username</span
+          >
+          <span *ngIf="newSettingsForm.get('userName').errors?.usernameIsTaken"
+            >The username is taken</span
+          >
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            formControlName="email"
+            #email
+          />
+          <span
+            *ngIf="
+              newSettingsForm.get('email').errors?.required &&
+              newSettingsForm.get('email').touched
+            "
+            >Enter an email</span
+          >
+          <span *ngIf="newSettingsForm.get('email').errors?.emailIsTaken"
+            >The email is taken</span
+          >
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            class="form-control"
+            [type]="show ? 'text' : 'password'"
+            formControlName="password"
+          />
+          <span
+            *ngIf="
+              newSettingsForm.get('password').errors?.passwordIsInvalid &&
+              newSettingsForm.get('password').touched
+            "
+          >
+            Password must be at least 6 characters long and contains at least a
+            number
+          </span>
+          <div>
+            <input type="checkbox" (click)="onShowPassword()" />Show Password
+          </div>
+        </div>
+        <div>
+          <button
+            type="submit"
+            class="submit"
+            [disabled]="!newSettingsForm.valid"
+          >
+            Save
+          </button>
+          <button type="button" class="reset" (click)="onResetForm()">
+            Reset
+          </button>
+        </div>
+      </body>
+    </form>
+  </div>
+</div>

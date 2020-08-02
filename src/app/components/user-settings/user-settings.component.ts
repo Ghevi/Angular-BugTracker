@@ -43,7 +43,6 @@ export class UserSettingsComponent implements OnInit {
         this.validPassword.bind(this),
       ]),
     });
-    this.newSettingsForm.reset();
   }
 
   onSubmit() {

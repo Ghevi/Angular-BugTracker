@@ -6,17 +6,17 @@ import { ProjectDetailsComponent } from "./components/project-list/project-detai
 import { UserSettingsComponent } from "./components/user-settings/user-settings.component";
 import { NewEmployeeFormComponent } from "./components/employee-list/new-employee-form/new-employee-form.component";
 import { NewProjectFormComponent } from "./components/project-list/new-project-form/new-project-form-alert.component";
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from "./components/home/home.component";
+import { AuthComponent } from "./components/auth/auth.component";
 
 const routes: Routes = [
-  { path: "home", component: HomeComponent},
+  { path: "auth", component: AuthComponent },
+  { path: "home", component: HomeComponent },
   { path: "user-settings", component: UserSettingsComponent },
   {
     path: "employees",
     component: EmployeeListComponent,
-    children: [
-      { path: "new-employee", component: NewEmployeeFormComponent },
-    ],
+    children: [{ path: "new-employee", component: NewEmployeeFormComponent }],
   },
   {
     path: "projects",

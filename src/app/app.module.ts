@@ -26,6 +26,7 @@ import { EmployeesAssignmentComponent } from './components/home/charts/employees
 import { TicketsByPriorityComponent } from './components/home/charts/tickets-by-priority/tickets-by-priority.component';
 import { TicketsByStatusComponent } from './components/home/charts/tickets-by-status/tickets-by-status.component';
 import { TicketsByTypeComponent } from './components/home/charts/tickets-by-type/tickets-by-type.component';
+import { AuthComponent } from './components/auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { TicketsByTypeComponent } from './components/home/charts/tickets-by-type
     TicketsByPriorityComponent,
     TicketsByStatusComponent,
     TicketsByTypeComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
