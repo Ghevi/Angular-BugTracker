@@ -4,7 +4,7 @@
     <h3>New Employee</h3>
     <div>
       <label for="userName">Username</label>
-      <input type="text" class="form-control" [formControlName]="'userName'" #userName/>
+      <input type="text" class="form-control" [formControlName]="'userName'"/>
       <span
         *ngIf="
           newEmployeeForm.get('userName').errors?.required &&
@@ -12,14 +12,14 @@
         "
         >Enter a username</span
       >
-      <span *ngIf="newEmployeeForm.get('userName').errors?.usernameIsTaken"
+      <span *ngIf="newEmployeeForm.get('userName').errors?.isTaken"
         >The username is taken</span
       >
     </div>
     <div class="height-divider"></div>
     <div>
       <label for="Email">Email</label>
-      <input type="text" class="form-control" formControlName="email"  #email/>
+      <input type="text" class="form-control" formControlName="email"/>
       <span
         *ngIf="
           newEmployeeForm.get('email').errors?.required &&
@@ -27,7 +27,7 @@
         "
         >Enter an email</span
       >
-      <span *ngIf="newEmployeeForm.get('email').errors?.emailIsTaken"
+      <span *ngIf="newEmployeeForm.get('email').errors?.isTaken"
         >The email is taken</span
       >
     </div>

@@ -11,8 +11,6 @@ import { ProjectListComponent } from "./components/project-list/project-list.com
 import { HeaderComponent } from "./components/header/header.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 
-import { EmployeeService } from "./services/employee.service";
-import { ProjectService } from "./services/project.service";
 import { TicketsListComponent } from "./components/tickets-list/tickets-list.component";
 import { ProjectDetailsComponent } from "./components/project-list/project-details/project-details.component";
 import { AssignedEmployeesComponent } from "./components/project-list/project-details/assigned-employees/assigned-employees.component";
@@ -27,6 +25,7 @@ import { TicketsByPriorityComponent } from './components/home/charts/tickets-by-
 import { TicketsByStatusComponent } from './components/home/charts/tickets-by-status/tickets-by-status.component';
 import { TicketsByTypeComponent } from './components/home/charts/tickets-by-type/tickets-by-type.component';
 import { AuthComponent } from './components/auth/auth.component';
+import { SearchComponent } from './components/header/search/search.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +46,8 @@ import { AuthComponent } from './components/auth/auth.component';
     TicketsByPriorityComponent,
     TicketsByStatusComponent,
     TicketsByTypeComponent,
-    AuthComponent
+    AuthComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +57,7 @@ import { AuthComponent } from './components/auth/auth.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [EmployeeService, ProjectService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,10 +1,23 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { EmployeeService } from "src/app/services/employee.service";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  AsyncValidator,
+  AbstractControl,
+  AsyncValidatorFn,
+} from "@angular/forms";
 import { IEmployee } from "src/app/common/entities/employee";
 import { Router } from "@angular/router";
-import { Observable, fromEvent } from "rxjs";
-import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
+import { Observable, fromEvent, timer } from "rxjs";
+import {
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+  map,
+} from "rxjs/operators";
+import { PropertiesValidator } from "src/app/services/validators/properties.validator";
 
 @Component({
   selector: "app-new-employee-form",
@@ -15,11 +28,11 @@ export class NewEmployeeFormComponent implements OnInit {
   newEmployeeForm: FormGroup;
   formSubmitted = false;
 
-  @ViewChild("userName") userName: ElementRef;
-  @ViewChild("email") email: ElementRef;
+  public username: string = "";
 
   constructor(
     private employeeService: EmployeeService,
+    private propertiesValidator: PropertiesValidator,
     private router: Router
   ) {}
 
@@ -28,12 +41,12 @@ export class NewEmployeeFormComponent implements OnInit {
       userName: new FormControl(
         null,
         Validators.required,
-        this.takenUsername.bind(this)
+        this.propertiesValidator.employeeTakenProperty("userName")
       ),
       email: new FormControl(
         null,
         [Validators.required, Validators.email],
-        this.takenEmail.bind(this)
+        this.propertiesValidator.employeeTakenProperty("email")
       ),
       role: new FormControl("Admin"),
     });
@@ -65,56 +78,25 @@ export class NewEmployeeFormComponent implements OnInit {
     }
   }
 
-  takenUsername(control: FormControl): Promise<any> | Observable<any> {
-    const promise = new Promise<any>((resolve, reject) => {
-      let text$ = fromEvent(this.userName.nativeElement, "keyup")
-        .pipe(
-          debounceTime(200),
-          distinctUntilChanged(),
-          switchMap(() => this.employeeService.getEmployeeList())
+  takenUsername(): AsyncValidatorFn {
+    return (
+      control: AbstractControl
+    ): Observable<{ [key: string]: any } | null> => {
+      return timer(500).pipe(
+        switchMap(() =>
+          this.employeeService.getEmployeeList().pipe(
+            map((employees) => {
+              const foundEmployee = employees.find(
+                (employee) => employee.userName === control.value
+              );
+              if (foundEmployee) {
+                return { usernameIsTaken: true };
+              }
+            })
+          )
         )
-        .subscribe((employees) => {
-          if (employees.length === 0) {
-            resolve(null);
-          }
-          const properties = employees.map((employee) => employee.userName);
-          for (let tempProperty of properties) {
-            console.log("temp property is " + tempProperty)
-            console.log("control value is " + control.value)
-            if (tempProperty === control.value) {
-              resolve({ usernameIsTaken: true });
-            } else {
-              resolve(null);
-            }
-          }
-        });
-    });
-    return promise;
-  }
-
-  takenEmail(control: FormControl): Promise<any> | Observable<any> {
-    const promise = new Promise<any>((resolve, reject) => {
-      let text$ = fromEvent(this.email.nativeElement, "keyup")
-        .pipe(
-          debounceTime(200),
-          distinctUntilChanged(),
-          switchMap(() => this.employeeService.getEmployeeList())
-        )
-        .subscribe((employees) => {
-          if (employees.length === 0) {
-            resolve(null);
-          }
-          const properties = employees.map((employee) => employee.email);
-          for (let tempProperty of properties) {
-            if (tempProperty === control.value) {
-              resolve({ emailIsTaken: true });
-            } else {
-              resolve(null);
-            }
-          }
-        });
-    });
-    return promise;
+      );
+    };
   }
 
   // getControls() {

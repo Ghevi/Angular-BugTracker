@@ -12,7 +12,6 @@
             type="text"
             class="form-control"
             formControlName="userName"
-            #userName
           />
           <span
             *ngIf="
@@ -21,7 +20,7 @@
             "
             >Enter a username</span
           >
-          <span *ngIf="newSettingsForm.get('userName').errors?.usernameIsTaken"
+          <span *ngIf="newSettingsForm.get('userName').errors?.isTaken"
             >The username is taken</span
           >
         </div>
@@ -31,7 +30,6 @@
             type="email"
             class="form-control"
             formControlName="email"
-            #email
           />
           <span
             *ngIf="
@@ -40,7 +38,7 @@
             "
             >Enter an email</span
           >
-          <span *ngIf="newSettingsForm.get('email').errors?.emailIsTaken"
+          <span *ngIf="newSettingsForm.get('email').errors?.isTaken"
             >The email is taken</span
           >
         </div>

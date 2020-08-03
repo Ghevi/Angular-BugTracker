@@ -1,16 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
-import { Subject, fromEvent, Observable } from "rxjs";
+import { Component, OnInit } from "@angular/core";
+import { Subject } from "rxjs";
 import { ProjectService } from "src/app/services/project.service";
 import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
 import { EmployeeService } from "src/app/services/employee.service";
-import { IProject } from "src/app/common/entities/project";
 import { IEmployee } from "src/app/common/entities/employee";
 import { Router } from "@angular/router";
-import {
-  debounceTime,
-  distinctUntilChanged,
-  switchMap,
-} from "rxjs/operators";
+import { switchMap } from "rxjs/operators";
+import { PropertiesValidator } from "src/app/services/validators/properties.validator";
 
 @Component({
   selector: "app-project-alert",
@@ -19,9 +15,13 @@ import {
 })
 export class NewProjectFormComponent implements OnInit {
   closeNewProjectAlert: Subject<boolean> = new Subject<boolean>();
-  employees: IEmployee[];
+  private projectUrl = "http://localhost:8080/api/projects/";
+
   newProjectForm: FormGroup;
+
+  employees: IEmployee[];
   addEmployeeBtnClicked = false;
+  formSubmitted = false;
   forbiddenUsernames = [
     "Admin",
     "Manager",
@@ -32,14 +32,11 @@ export class NewProjectFormComponent implements OnInit {
     "developer",
     "guest",
   ];
-  private projectUrl = "http://localhost:8080/api/projects/";
-  formSubmitted = false;
-
-  @ViewChild("projectName") projectName: ElementRef;
 
   constructor(
     private projectService: ProjectService,
     private employeeService: EmployeeService,
+    private propertiesValidator: PropertiesValidator,
     private router: Router
   ) {}
 
@@ -52,7 +49,7 @@ export class NewProjectFormComponent implements OnInit {
       projectName: new FormControl(
         null,
         Validators.required,
-        this.takenProjectNames.bind(this)
+        this.propertiesValidator.projectTakenProperty("projectName")
       ),
       description: new FormControl(null),
       assignedEmployees: new FormControl(null, [Validators.required]),
@@ -61,6 +58,10 @@ export class NewProjectFormComponent implements OnInit {
   }
 
   onSubmit() {
+    if (!this.newProjectForm.valid) {
+      return;
+    }
+
     const newProject = this.newProjectForm.value;
     newProject.stage = "In progress";
 
@@ -81,7 +82,7 @@ export class NewProjectFormComponent implements OnInit {
     this.projectService.addProjectToTable(newProject);
   }
 
-  // Consider using this in onSubmit() if concatMap gives trouble
+  // Consider using this in onSubmit() if switchMap gives trouble
 
   // public async myFunc(newProject: any): Promise<void> {
   //   const newProjectFromServer = await this.projectService
@@ -111,33 +112,6 @@ export class NewProjectFormComponent implements OnInit {
 
   onAddEmployees() {
     this.router.navigate(["projects/new-employee"]);
-  }
-
-  takenProjectNames(control: FormControl): Promise<any> | Observable<any> {
-    const promise = new Promise<any>((resolve, reject) => {
-      let text$ = fromEvent(this.projectName.nativeElement, "keyup")
-        .pipe(
-          debounceTime(200),
-          distinctUntilChanged(),
-          switchMap(() => this.projectService.getProjectList())
-        )
-        .subscribe((projects) => {
-          if (projects.length === 0) {
-            resolve(null);
-          }
-          const properties = projects.map(
-            (project) => project.projectName
-          );
-          for (let tempProperty of properties) {
-            if (tempProperty === control.value) {
-              resolve({ projectNameIsTaken: true });
-            } else {
-              resolve(null);
-            }
-          }
-        });
-    });
-    return promise;
   }
 
   getControls() {

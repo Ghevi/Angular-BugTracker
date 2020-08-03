@@ -1,0 +1,12 @@
+* {
+  font-family: 'Open Sans';
+}
+
+input {
+  position: relative;
+  font-style: italic;
+  width: 20vw;
+  left: 1vw;
+  top: 1vh;
+  border-radius: 5px;
+}

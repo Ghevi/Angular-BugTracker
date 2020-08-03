@@ -9,7 +9,6 @@
         id="projectName"
         class="form-control"
         [formControlName]="'projectName'"
-        #projectName
       />
       <!-- if omit [] also omit ''-->
       <span
@@ -19,7 +18,7 @@
         "
         >Enter a project name</span
       >
-      <span *ngIf="newProjectForm.get('projectName').errors?.projectNameIsTaken"
+      <span *ngIf="newProjectForm.get('projectName').errors?.isTaken"
         >The project name is taken</span
       >
     </div>
@@ -75,7 +74,6 @@
     </div>
   </form>
 </div>
-
 
 <!-- Added before routing
   <ng-container *ngIf="addEmployeeBtnClicked" formArrayName="employees">
