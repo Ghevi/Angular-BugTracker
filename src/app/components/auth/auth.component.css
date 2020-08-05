@@ -1,3 +1,8 @@
+.form {
+  margin-left: 7rem;
+  max-width: 20vw;
+}
+
 .signup {
   position: absolute;
   color: white;
@@ -50,6 +55,15 @@ input.ng-invalid.ng-touched {
 }
 
 input[type="checkbox"] {
+  position: relative;
   width: 30px;
   height: 30px;
+  top: 0.5rem;
+  left: 0.5rem;
+}
+
+.show-password {
+  position: relative;
+  float: right;
+  top: 26px;
 }

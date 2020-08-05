@@ -26,6 +26,7 @@ import { TicketsByStatusComponent } from './components/home/charts/tickets-by-st
 import { TicketsByTypeComponent } from './components/home/charts/tickets-by-type/tickets-by-type.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { SearchComponent } from './components/header/search/search.component';
+import { SearchResultComponent } from './components/search-result/search-result.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { SearchComponent } from './components/header/search/search.component';
     TicketsByStatusComponent,
     TicketsByTypeComponent,
     AuthComponent,
-    SearchComponent
+    SearchComponent,
+    SearchResultComponent
   ],
   imports: [
     BrowserModule,

@@ -8,8 +8,10 @@ import { NewEmployeeFormComponent } from "./components/employee-list/new-employe
 import { NewProjectFormComponent } from "./components/project-list/new-project-form/new-project-form-alert.component";
 import { HomeComponent } from "./components/home/home.component";
 import { AuthComponent } from "./components/auth/auth.component";
+import { SearchResultComponent } from './components/search-result/search-result.component';
 
 const routes: Routes = [
+  { path: "search/:type/:keyword", component: SearchResultComponent},
   { path: "auth", component: AuthComponent },
   { path: "home", component: HomeComponent },
   { path: "user-settings", component: UserSettingsComponent },

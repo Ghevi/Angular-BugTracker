@@ -9,8 +9,13 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { EmployeeService } from "src/app/services/employee.service";
 import { IEmployee } from "src/app/common/entities/employee";
 import { Observable, fromEvent } from "rxjs";
-import { debounceTime, distinctUntilChanged, switchMap, map } from "rxjs/operators";
-import { PropertiesValidator } from 'src/app/services/validators/properties.validator';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+  map,
+} from "rxjs/operators";
+import { PropertiesValidator } from "src/app/services/validators/properties.validator";
 
 @Component({
   selector: "app-user-settings",
@@ -21,8 +26,12 @@ export class UserSettingsComponent implements OnInit {
   newSettingsForm: FormGroup;
   loggedUser: IEmployee;
   show = false;
+  showSubmitted = false;
 
-  constructor(private employeeService: EmployeeService, private propertiesValidator: PropertiesValidator) {}
+  constructor(
+    private employeeService: EmployeeService,
+    private propertiesValidator: PropertiesValidator
+  ) {}
 
   ngOnInit(): void {
     this.newSettingsForm = new FormGroup({
@@ -46,10 +55,17 @@ export class UserSettingsComponent implements OnInit {
   onSubmit() {
     const updatedEmployee: IEmployee = this.newSettingsForm.value;
     this.employeeService
-      .updateEmployee(9, updatedEmployee)
+      .updateEmployee(10, updatedEmployee)
       .subscribe((data) => {
         console.log(data);
       });
+
+    this.showSubmitted = !this.showSubmitted;
+    setTimeout(() => {
+      this.showSubmitted = !this.showSubmitted;
+    }, 2000);
+
+    this.newSettingsForm.reset();
   }
 
   onResetForm() {

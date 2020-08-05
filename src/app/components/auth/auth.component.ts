@@ -43,6 +43,7 @@ export class AuthComponent implements OnInit {
   }
 
   onSwitchMode() {
+    this.newAuthForm.reset();
     this.isLoginMode = !this.isLoginMode;
   }
 

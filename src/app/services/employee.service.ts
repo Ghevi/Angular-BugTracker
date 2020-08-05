@@ -4,7 +4,7 @@ import { Observable, Subject } from "rxjs";
 import { map, timeoutWith } from "rxjs/operators";
 import { IEmployee } from "../common/entities/employee";
 
-interface GetResponse {
+interface GetEmployeeResponse {
   _embedded: {
     employees: IEmployee[];
   };
@@ -17,7 +17,6 @@ export class EmployeeService {
   private addEmployeeToTable$: Subject<IEmployee> = new Subject<IEmployee>();
 
   private employeesBaseUrl = "http://localhost:8080/api/employees";
-  private projectsBaseUrl = "http://localhost:8080/api/projects";
 
   constructor(private httpClient: HttpClient) {}
 
@@ -40,12 +39,18 @@ export class EmployeeService {
 
   getEmployeeList(): Observable<IEmployee[]> {
     return this.httpClient
-      .get<GetResponse>(this.employeesBaseUrl)
+      .get<GetEmployeeResponse>(this.employeesBaseUrl)
       .pipe(map((response) => response._embedded.employees));
   }
 
-  updateEmployee(id: number, updatedEmployee: IEmployee): Observable<IEmployee> {
-    return this.httpClient.patch<IEmployee>(this.employeesBaseUrl + "/" + id, updatedEmployee);
+  updateEmployee(
+    id: number,
+    updatedEmployee: IEmployee
+  ): Observable<IEmployee> {
+    return this.httpClient.patch<IEmployee>(
+      this.employeesBaseUrl + "/" + id,
+      updatedEmployee
+    );
   }
 
   addEmployee(employee: IEmployee): Observable<IEmployee> {
@@ -54,5 +59,13 @@ export class EmployeeService {
 
   deleteEmployee(id: number): Observable<IEmployee> {
     return this.httpClient.delete<IEmployee>(this.employeesBaseUrl + "/" + id);
+  }
+
+  searchEmployees(keyword: string): Observable<IEmployee[]> {
+    const searchUrl = `${this.employeesBaseUrl}/search/findByUserNameContaining?userName=${keyword}`;
+
+    return this.httpClient
+      .get<GetEmployeeResponse>(searchUrl)
+      .pipe(map((response) => response._embedded.employees));
   }
 }

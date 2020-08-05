@@ -10,3 +10,35 @@ input {
   top: 1vh;
   border-radius: 5px;
 }
+
+button {
+  position: absolute;
+  margin-left: 3rem;
+  margin-top: 0.4rem;
+  color: white;
+  background-color: rgb(150, 153, 155);
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  box-shadow: 0 8px 16px 0 #141418, 0 6px 20px 0 #141418;
+  color: white;
+  background-color: #3fa3f5;
+  transition-duration: 0.5s;
+}
+
+select {
+  position: relative;
+  margin-left: 2rem;
+  top: 0.6rem;
+  border-radius: 5px;
+}
+
+span {
+  position: relative;
+  margin-left: 8rem;
+  top: 0.5rem;
+  color: white;
+}

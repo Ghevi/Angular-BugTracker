@@ -1,1 +1,18 @@
-<input type="text" placeholder="Search">
+<input
+  type="text"
+  #myInput
+  (keyup.enter)="onSearch(type.value, myInput.value)"
+/>
+<select #type>
+  <option value="project">Project</option>
+  <option value="employee">Employee</option>
+  <option value="ticket">Ticket</option>
+</select>
+<button
+  (click)="onSearch(type.value, myInput.value)"
+>
+  Search
+</button>
+<span *ngIf="showError">
+  Please, enter a search term
+</span>

@@ -2,14 +2,19 @@
   font-family: "Open Sans";
 }
 
+.form {
+  margin-left: 7rem;
+  max-width: 20vw;
+}
+
 p {
   font-size: 150%;
 }
 
 .submit {
   position: relative;
-  left: 11.5rem;
-  width: 18.6rem;
+  left: 3rem;
+  width: 10rem;
   color: white;
   background-color: rgb(150, 153, 155);
   padding: 10px;
@@ -32,8 +37,8 @@ p {
 
 .reset {
   position: relative;
-  left: 11.5rem;
-  width: 18.6rem;
+  left: 4rem;
+  width: 10rem;
   color: white;
   background-color: rgb(150, 153, 155);
   padding: 10px;

@@ -13,11 +13,11 @@ interface GetProjectsResponse {
   };
 }
 
-interface GetProjectEmployeesResponse {
-  _embedded: {
-    employees: IEmployee[];
-  };
-}
+// interface GetProjectEmployeesResponse {
+//   _embedded: {
+//     employees: IEmployee[];
+//   };
+// }
 
 @Injectable({
   providedIn: "root",
@@ -73,5 +73,13 @@ export class ProjectService {
 
   deleteProject(id: number): Observable<IProject> {
     return this.httpClient.delete<IProject>(this.baseUrl + "/" + id);
+  }
+
+  searchProjects(keyword: string): Observable<IProject[]> {
+    const searchUrl = `${this.baseUrl}/search/findByProjectNameContaining?projectName=${keyword}`;
+
+    return this.httpClient
+      .get<GetProjectsResponse>(searchUrl)
+      .pipe(map((response) => response._embedded.projects));
   }
 }

@@ -86,6 +86,7 @@ main {
 
 .link-text-title {
   display: none;
+  font-size: 80%;
   margin-left: 1rem;
 }
 

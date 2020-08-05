@@ -1,80 +1,76 @@
-<div class="row">
-  <div class="col-xs-12">
-    <form [formGroup]="newSettingsForm" (ngSubmit)="onSubmit()">
-      <header>
-        <h1>User Settings</h1>
-      </header>
-      <body>
-        <p>General settings</p>
-        <div class="form-group">
-          <label for="userName">Username</label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="userName"
-          />
-          <span
-            *ngIf="
-              newSettingsForm.get('userName').errors?.required &&
-              newSettingsForm.get('userName').touched
-            "
-            >Enter a username</span
-          >
-          <span *ngIf="newSettingsForm.get('userName').errors?.isTaken"
-            >The username is taken</span
-          >
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input
-            type="email"
-            class="form-control"
-            formControlName="email"
-          />
-          <span
-            *ngIf="
-              newSettingsForm.get('email').errors?.required &&
-              newSettingsForm.get('email').touched
-            "
-            >Enter an email</span
-          >
-          <span *ngIf="newSettingsForm.get('email').errors?.isTaken"
-            >The email is taken</span
-          >
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            class="form-control"
-            [type]="show ? 'text' : 'password'"
-            formControlName="password"
-          />
-          <span
-            *ngIf="
-              newSettingsForm.get('password').errors?.passwordIsInvalid &&
-              newSettingsForm.get('password').touched
-            "
-          >
-            Password must be at least 6 characters long and contains at least a
-            number
-          </span>
-          <div>
-            <input type="checkbox" (click)="onShowPassword()" />Show Password
-          </div>
-        </div>
+<div class="form">
+  <form [formGroup]="newSettingsForm" (ngSubmit)="onSubmit()">
+    <header>
+      <h1>User Settings</h1>
+    </header>
+    <body>
+      <p>General settings</p>
+      <div class="form-group">
+        <label for="userName">Username</label>
+        <input type="text" class="form-control" formControlName="userName" />
+        <span
+          *ngIf="
+            newSettingsForm.get('userName').errors?.required &&
+            newSettingsForm.get('userName').touched
+          "
+          >Enter a username</span
+        >
+        <span *ngIf="newSettingsForm.get('userName').errors?.isTaken"
+          >The username is taken</span
+        >
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" formControlName="email" />
+        <span
+          *ngIf="
+            newSettingsForm.get('email').errors?.required &&
+            newSettingsForm.get('email').touched
+          "
+          >Enter an email</span
+        >
+        <span *ngIf="newSettingsForm.get('email').errors?.isTaken"
+          >The email is taken</span
+        >
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          class="form-control"
+          [type]="show ? 'text' : 'password'"
+          formControlName="password"
+        />
+        <span
+          *ngIf="
+            newSettingsForm.get('password').errors?.passwordIsInvalid &&
+            newSettingsForm.get('password').touched
+          "
+        >
+          Password must be at least 6 characters long and contains at least a
+          number
+        </span>
         <div>
-          <button
-            type="submit"
-            class="submit"
-            [disabled]="!newSettingsForm.valid"
-          >
-            Save
-          </button>
-          <button type="button" class="reset" (click)="onResetForm()">
-            Reset
-          </button>
+          <input type="checkbox" (click)="onShowPassword()" />Show Password
         </div>
-      </body>
-    </form>
-  </div>
+      </div>
+      <div>
+        <button
+          type="submit"
+          class="submit"
+          [disabled]="!newSettingsForm.valid"
+        >
+          Save
+        </button>
+        <button type="button" class="reset" (click)="onResetForm()">
+          Reset
+        </button>
+        <div
+          *ngIf="!showSubmitted"
+          style="position: relative; left: 6.5rem; margin-top: 0.5rem;"
+        >
+          Saved!
+        </div>
+      </div>
+    </body>
+  </form>
 </div>

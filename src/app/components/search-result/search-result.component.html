@@ -1,0 +1,40 @@
+<!-- Show Projects result -->
+<div *ngIf="projects?.length === 0">
+  No Project found
+</div>
+<div class="main" *ngIf="projects?.length > 0">
+  <div class="projects" *ngFor="let project of projects">
+    <h1>Result: {{ project?.projectName | titlecase }}</h1>
+    <div
+      *ngIf="
+        !(project?.description?.length === 0 || project?.description === null)
+      "
+    >
+      <h6>Project Description: {{ project?.description }}</h6>
+    </div>
+    <div
+      *ngIf="
+        project?.description?.length === 0 || project?.description === null
+      "
+    >
+      Project Description: This project has no description
+    </div>
+    <h6>Project Stage: {{ project?.stage }}</h6>
+    <a routerLink="/employees">Assigned Employee</a>
+    <br />
+    <a [routerLink]="project.id">Project Details</a>
+  </div>
+</div>
+
+<!-- Show Employees result -->
+<div *ngIf="employees?.length === 0">
+  No Employee found
+</div>
+<div class="main" *ngIf="employees?.length > 0">
+  <div class="employees" *ngFor="let employee of employees">
+    <div>
+      <h3>Username: {{ employee?.userName | titlecase }}</h3>
+      <h6>Employee Role: {{ employee?.role }}</h6>
+    </div>
+  </div>
+</div>
