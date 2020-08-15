@@ -5,11 +5,12 @@
 
 .topnav {
   margin-left: 5rem;
+  max-height: 4rem;
   background-color: #23232e;
   overflow: hidden;
 }
 
-.topnav a {
+.topnav a, span {
   float: left;
   color: #b6b6b6;
   text-align: center;
@@ -23,7 +24,9 @@
 }
 
 .topnav :last-child {
-  margin-left: 74vw;
+  position: relative;
+  top: -2rem;
+  margin-left: 80rem;
 }
 
 .topnav a:hover {

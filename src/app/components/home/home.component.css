@@ -1,4 +1,6 @@
 .main-div {
+  position: relative;
+  left: 9rem;
   width: 100vw;
   height: 100vh;
 }
